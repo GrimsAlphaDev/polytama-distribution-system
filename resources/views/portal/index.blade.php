@@ -12,9 +12,7 @@
     <link rel="stylesheet" href="assets/portal/vendors/swiper/swiper-bundle.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&amp;family=Rubik:ital,wght@0,300..900;1,300..900family=Rubik:ital,wght@0,300..900;1,300..900&amp;display=swap"
-        rel="stylesheet">
+
     <link href="assets/portal/css/theme.min.css" rel="stylesheet" id="style-default">
     <link href="assets/portal/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
     <link href="assets/portal/css/user.min.css" rel="stylesheet" id="user-style-default">
@@ -32,7 +30,7 @@
                         <h1 class="navbar-brand w-75 d-md-none">PORPOLDIST</h1>
                     </a><a class="navbar-brand fw-bold d-none d-md-block" href="/">PORTAL POLYTAMA
                         DISTRIBUTION</a><a class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
-                        href="#">LOGIN
+                        href="{{ route('login') }}">LOGIN
                     </a><button class="navbar-toggler border-0 pe-0" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"
                         aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -385,7 +383,7 @@
                     <div class="row gy-2 py-3 justify-content-center justify-content-md-between">
                         <div class="col-auto ps-0">
                             <p class="text-center text-md-start lh-xl text-1100"> © 2024 Copyright, All Right Reserved,
-                                Made by <a class="fw-semi-bold" href="#">Mochammad Haikal Alfandi Subagyo </a>❤️
+                                Made by <a class="fw-semi-bold" href="https://www.linkedin.com/in/haikal-alfandi-61836922a" target="_blank">Mochammad Haikal Alfandi Subagyo </a>❤️
                             </p>
                         </div>
                     </div>
