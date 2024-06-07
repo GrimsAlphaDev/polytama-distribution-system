@@ -19,6 +19,8 @@
     <link href="assets/portal/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
     <link href="assets/portal/css/user.min.css" rel="stylesheet" id="user-style-default">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
 </head>
 
 <body>
@@ -30,8 +32,7 @@
                         <h1 class="navbar-brand w-75 d-md-none">PORPOLDIST</h1>
                     </a><a class="navbar-brand fw-bold d-none d-md-block" href="/">PORTAL POLYTAMA
                         DISTRIBUTION</a><a class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
-                        href="#">Get Started
-                        Now
+                        href="#">LOGIN
                     </a><button class="navbar-toggler border-0 pe-0" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"
                         aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -42,7 +43,7 @@
                             <li class="nav-item"> <a class="nav-link lh-xl" href="#home">Home</a></li>
                             <li class="nav-item"> <a class="nav-link lh-xl" href="#sekilas">Sekilas Polytama</a></li>
                             <li class="nav-item"> <a class="nav-link lh-xl" href="#product">Product</a></li>
-                            <li class="nav-item"> <a class="nav-link lh-xl" href="#pricing">Pricing</a></li>
+                            <li class="nav-item"> <a class="nav-link lh-xl" href="#aboutus">About Us</a></li>
                             <li class="nav-item"> <a class="nav-link lh-xl" href="#contact">Contact</a></li>
                         </ul>
                     </div>
@@ -192,7 +193,7 @@
                     </div>
                 </section>
 
-                <section class="bg-1100">
+                <section class="bg-1100" id="aboutus">
                     <div class="container">
                         <div class="row py-8 py-md-10 py-lg-11">
                             <div class="col-lg-6">
@@ -203,7 +204,15 @@
                                             About Us</h2>
                                         <p
                                             class="fs-8 text-white text-opacity-65 mb-4 mb-md-6 mb-lg-7 lh-lg mb-6 mb-lg-7 text-center text-lg-justify">
-                                            Polytama berkomitmen menerapkan prinsip-prinsip GCG untuk memastikan Perusahaan memiliki daya saing yang kuat dan prospek pertumbuhan yang berkelanjutan. Tata kelola perusahaan dilakukan antara lain dengan memaksimalkan nilai Perusahaan melalui peningkatan prinsip transparansi, akuntabilitas, dapat dipercaya, bertanggung jawab, dan adil. Polytama terus berupaya mengelola Perusahaan secara profesional, transparan, dan efisien, memberdayakan berbagai fungsi dan meningkatkan independensi organ Perusahaan, yang kesemuanya dilandasi oleh prinsip moral yang tinggi dan sepenuhnya mematuhi peraturan perundang-undangan yang berlaku.
+                                            Polytama berkomitmen menerapkan prinsip-prinsip GCG untuk memastikan
+                                            Perusahaan memiliki daya saing yang kuat dan prospek pertumbuhan yang
+                                            berkelanjutan. Tata kelola perusahaan dilakukan antara lain dengan
+                                            memaksimalkan nilai Perusahaan melalui peningkatan prinsip transparansi,
+                                            akuntabilitas, dapat dipercaya, bertanggung jawab, dan adil. Polytama terus
+                                            berupaya mengelola Perusahaan secara profesional, transparan, dan efisien,
+                                            memberdayakan berbagai fungsi dan meningkatkan independensi organ
+                                            Perusahaan, yang kesemuanya dilandasi oleh prinsip moral yang tinggi dan
+                                            sepenuhnya mematuhi peraturan perundang-undangan yang berlaku.
                                         </p>
                                     </div>
                                 </div>
@@ -215,13 +224,14 @@
                                                 class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#collapse1"
                                                 aria-expand="true" aria-controls="collapse1"
-                                                data-accordion-button="data-accordion-button">How to setup
-                                                BrainwaveIO?</button></h2>
+                                                data-accordion-button="data-accordion-button">Visi</button></h2>
                                         <div class="accordion-collapse collapse show" id="collapse1"
                                             data-bs-parent="#accordion">
-                                            <div class="accordion-body lh-xl pt-0 pb-x1">Enjoy the easy setup process
-                                                with
-                                                little to no coding knowledge with us!</div>
+                                            <div class="accordion-body lh-xl pt-0 pb-x1 text-justify">
+                                                Menjadi pemimpin produser polipropilena di Indonesia yang tangguh dan
+                                                dinamis, yang berorientasi kepada kepuasan pelanggan dan pemangku
+                                                kepentingan.
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
@@ -229,14 +239,45 @@
                                                 class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed"
                                                 type="button" data-bs-toggle="collapse" data-bs-target="#collapse2"
                                                 aria-expand="false" aria-controls="collapse2"
-                                                data-accordion-button="data-accordion-button">Can I use BrainwaveIO for
-                                                my
-                                                clients?</button></h2>
+                                                data-accordion-button="data-accordion-button">Misi</button></h2>
                                         <div class="accordion-collapse collapse" id="collapse2"
                                             data-bs-parent="#accordion">
-                                            <div class="accordion-body lh-xl pt-0 pb-x1">Yes, you can. Enjoy special
-                                                rates
-                                                for your first client!</div>
+                                            <div class="accordion-body lh-xl pt-0 pb-x1">
+                                                <ul class="text-justify">
+                                                    <li>
+                                                        Menjadi pemimpin pasar produk polipropilena di Indonesia
+                                                    </li>
+                                                    <li>
+                                                        Memanfaatkan kapasitas saat ini hingga tingkat optimal untuk
+                                                        barang produksi bernilai lebih baik atau lebih tinggi
+                                                    </li>
+                                                    <li>
+                                                        Mendorong efisiensi dan tepat guna dalam proses, SDM dan biaya
+                                                    </li>
+                                                    <li>
+                                                        Modernisasi proses, teknologi, mesin, dan fasilitas yang
+                                                        berkesinambungan di seluruh aspek operasi perusahaan
+                                                    </li>
+                                                    <li>
+                                                        Mengembangkan teknologi yang dimiliki dalam manufaktur polimer
+                                                        terutama untuk proses, resep dan penyesuaian produk sesuai
+                                                        kebutuhan pasar
+                                                    </li>
+                                                    <li>
+                                                        Melaksanakan sistem multi-sumber terutama untuk bahan baku utama
+                                                        demi meningkatkan keandalan perusahaan
+                                                    </li>
+                                                    <li>
+                                                        Membangun sistem sumber daya manusia yang berkelanjutan untuk
+                                                        menjamin kelangsungan perusahaan di masa mendatang dan
+                                                        kesejahteraan para karyawan
+                                                    </li>
+                                                    <li>
+                                                        Mengadopsi sistem manajemen integrasi di atas standar ISO 9001 –
+                                                        ISO 14001 – ISO 22000 – ISO 45001
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
@@ -244,72 +285,88 @@
                                                 class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed"
                                                 type="button" data-bs-toggle="collapse" data-bs-target="#collapse3"
                                                 aria-expand="false" aria-controls="collapse3"
-                                                data-accordion-button="data-accordion-button">How often do you release
-                                                update?</button></h2>
+                                                data-accordion-button="data-accordion-button">Nilai - Nilai
+                                                Utama</button></h2>
                                         <div class="accordion-collapse collapse" id="collapse3"
                                             data-bs-parent="#accordion">
-                                            <div class="accordion-body lh-xl pt-0 pb-x1">We will keep updating the
-                                                theme;
-                                                stay with us to get updated!</div>
+                                            <div class="accordion-body lh-xl pt-0 pb-x1">
+                                                Nilai - nilai utama kami terdiri dari :
+                                                <ul class="text-justify">
+                                                    <li class="fw-bold">
+                                                        Safety
+                                                    </li>
+                                                    <p>
+                                                        Membudayakan lingkungan kerja yang aman, sehat dan selamat serta
+                                                        memberikan kontribusi positif terhadap lingkungan.
+                                                    </p>
+                                                    <li class="fw-bold">
+                                                        Innovation
+                                                    </li>
+                                                    <p>
+                                                        Mengembangkan ide-ide baru melalui pemberdayaan SDM dan
+                                                        teknologi yang berkesinambungan.
+                                                    </p>
+                                                    <li class="fw-bold">
+                                                        Accountability
+                                                    </li>
+                                                    <p>
+                                                        Bertanggung jawab terhadap cara dan hasil kerja yang berkualitas
+                                                        baik.
+                                                    </p>
+                                                    <li class="fw-bold">
+                                                        Professionalism
+                                                    </li>
+                                                    <p>
+                                                        Bekerja dengan tulus, jujur, dan disiplin serta berkomitmen pada
+                                                        pelayanan optimal untuk semua pihak.
+                                                    </p>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="heading4"><button
-                                                class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed"
-                                                type="button" data-bs-toggle="collapse" data-bs-target="#collapse4"
-                                                aria-expand="false" aria-controls="collapse4"
-                                                data-accordion-button="data-accordion-button">How can I access to old
-                                                version?</button></h2>
-                                        <div class="accordion-collapse collapse" id="collapse4"
-                                            data-bs-parent="#accordion">
-                                            <div class="accordion-body lh-xl pt-0 pb-x1">Go to your cloud storage and
-                                                provide the password. You’ll find it there..</div>
-                                        </div>
-                                    </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="heading5"><button
-                                                class="accordion-button fs-8 lh-lg fw-bold pt-x1 pb-2 collapsed"
-                                                type="button" data-bs-toggle="collapse" data-bs-target="#collapse5"
-                                                aria-expand="false" aria-controls="collapse5"
-                                                data-accordion-button="data-accordion-button">How can I get your
-                                                support?</button></h2>
-                                        <div class="accordion-collapse collapse" id="collapse5"
-                                            data-bs-parent="#accordion">
-                                            <div class="accordion-body lh-xl pt-0 pb-x1">To reach our support team,
-                                                simply
-                                                send an email to support@brainwaveio.com. Our team will promptly address
-                                                your inquiry and provide assistance as needed.</div>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
+
                 <section class="bg-300 position-relative z-0" id="contact">
                     <div class="container py-8 py-lg-9">
-                        <div class="row justify-content-center">
-                            <div class="col-md-8 col-lg-8">
-                                <div class="row justify-content-center">
-                                    <div class="col-12 col-lg-10">
-                                        <h2 class="fs-4 fs-lg-3 fw-bold text-center mb-2 lh-sm">Get latest updates</h2>
-                                        <p class="fs-8 mb-5 mb-lg-6 text-center lh-lg fw-normal"> Subscribe to our
-                                            monthly
-                                            newsletter to stay connected with everything you need!</p>
+                        <div class="row align-items-center">
+                            <div class="col-12 col-lg-6 col-xl-7">
+                                <div class="row justify-content-center justify-content-lg-start">
+                                    <div class="col-sm-10 col-md-8 col-lg-11">
+                                        <h2 class="fs-4 fs-lg-3 fw-bold mb-2 text-center text-lg-start mb-3"> Contact
+                                            Us
+                                        </h2>
+                                        <div class="col-12">
+                                            <div class="mb-x1 mb-lg-4">
+                                                <h5 class="fs-8 fw-bold lh-lg mb-1">Head Office</h5>
+                                                <p class="b-0 lh-xl"><i class="bi bi-telephone"></i> Tel : (62-21) 570
+                                                    3883</p>
+                                                <p class="b-0 lh-xl"><i class="bi bi-telephone"></i> Fax : (62-21) 570
+                                                    4689</p>
+                                                <p class="b-0 lh-xl"><i class="bi bi-envelope"></i>
+                                                    corporatesecretary@polytama.co.id</p>
+                                            </div>
+                                            <div>
+                                                <h5 class="fs-8 fw-bold lh-lg mb-1"> Plant Site</h5>
+                                                <p class="b-0 lh-xl"><i class="bi bi-telephone"></i> Tel : (0234) 428
+                                                    002</p>
+                                                <p class="b-0 lh-xl"><i class="bi bi-telephone"></i> Fax : (0234) 428
+                                                    616</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-10 col-lg-7">
-                                        <form method="POST" onsubmit="return false;">
-                                            <div class="mb-2 w-100"><input class="form-control email-input"
-                                                    id="email" type="email" placeholder="Enter your email"
-                                                    required="required" /></div>
-                                            <div class="d-grid"><button class="btn btn-lg btn-primary lh-xl mb-x1"
-                                                    type="submit"> Subscribe </button></div>
-                                        </form>
-                                    </div>
-                                    <div class="col-10 col-lg-7">
-                                        <p class="text-center lh-lg mb-0">We’ll never share your details with third
-                                            parties. View our Privacy Policy for more info.</p>
-                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 col-xl-5 order-lg-1">
+                                <div class="ratio ratio-16x9">
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.993273864116!2d108.40030687586999!3d-6.394867462548411!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6ebf1830a49851%3A0x5703dab99a76373f!2sPT%20Polytama%20Propindo!5e0!3m2!1sid!2sid!4v1717765475734!5m2!1sid!2sid"
+                                        style="border:0;" allowfullscreen="false" class="rounded shadow-lg"
+                                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -324,58 +381,13 @@
                 data-scroll-top="data-scroll-top"><span class="uil uil-angle-up"></span></button>
             <footer class="pt-7 pt-lg-8">
                 <div class="container">
-                    <div class="row gy-4 g-md-3 border-bottom pb-8 pb-lg-9 justify-content-center">
-                        <div class="col-6 col-md-3">
-                            <p class="mb-2 lh-lg ls-1">Company</p>
-                            <ul class="list-unstyled text-1100">
-                                <li class="mb-1"> <a class="ls-1 lh-xl" href="#about">About us</a></li>
-                                <li class="mb-1"> <a class="ls-1 lh-xl" href="#contact"> Contact us</a></li>
-                                <li class="mb-1"> <a class="ls-1 lh-xl" href="#!">Careers</a></li>
-                                <li class="mb-1"> <a class="ls-1 lh-xl" href="#!">Press</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <p class="mb-2 lh-lg">Product</p>
-                            <ul class="list-unstyled text-1100">
-                                <li class="mb-1"> <a class="ls-1 lh-xl" href="#!">Features</a></li>
-                                <li class="mb-1"> <a class="ls-1 lh-xl" href="#!"> Pricing</a></li>
-                                <li class="mb-1"> <a class="ls-1 lh-xl" href="#!"> News</a></li>
-                                <li class="mb-1"> <a class="ls-1 lh-xl" href="#!"> Help desk</a></li>
-                                <li class="mb-1"><a class="ls-1 lh-xl" href="#!"> Support</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <p class="mb-2 lh-lg"> Legal</p>
-                            <ul class="list-unstyled text-1100">
-                                <li class="mb-1"> <a class="ls-1 lh-xl" href="#!">Privacy</a></li>
-                                <li class="mb-1"> <a class="ls-1 lh-xl" href="#!"> Terms & Conditions</a></li>
-                                <li class="mb-1"> <a class="ls-1 lh-xl" href="#!"> Return Policy</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-6 col-md-3 d-md-flex flex-column align-items-md-end pe-md-0">
-                            <div>
-                                <p class="mb-2 lh-lg"> Download Our App</p>
-                                <div class="mb-1 mb-lg-2"> <a
-                                        class="border-0 p-0 bg-transparent cursor-pointer rounded-1" href="#!">
-                                        <img class="img-fluid" src="assets/portal/img/logos/App_Store.webp"
-                                            alt="assets/portal/img/logos/App_Store.webp" /></a></div><a
-                                    class="border-0 p-0 bg-transparent cursor-pointer rounded-1" href="#!"> <img
-                                        class="img-fluid" src="assets/portal/img/logos/Play_Store.webp"
-                                        alt="assets/portal/img/logos/Play_Store.webp" /></a>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="row gy-2 py-3 justify-content-center justify-content-md-between">
                         <div class="col-auto ps-0">
                             <p class="text-center text-md-start lh-xl text-1100"> © 2024 Copyright, All Right Reserved,
-                                Made by <a class="fw-semi-bold" href="https://themewagon.com/">ThemeWagon </a>❤️</p>
+                                Made by <a class="fw-semi-bold" href="#">Mochammad Haikal Alfandi Subagyo </a>❤️
+                            </p>
                         </div>
-                        <div class="col-auto pe-0"><a class="icons fs-8 me-3 me-md-0 ms-md-3 cursor-pointer"
-                                href="#!"><span class="uil uil-twitter"> </span></a><a
-                                class="icons fs-8 me-3 me-md-0 ms-md-3 cursor-pointer" href="#!"><span
-                                    class="uil uil-instagram"></span></a><a
-                                class="icons fs-8 me-3 me-md-0 ms-md-3 cursor-pointer" href="#!"><span
-                                    class="uil uil-linkedin"> </span></a></div>
                     </div>
                 </div>
             </footer>
