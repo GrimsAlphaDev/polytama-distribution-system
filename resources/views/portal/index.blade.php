@@ -117,7 +117,7 @@
                                     data-video-player-container="data-video-player-container"><video
                                         class="w-100 h-100 rounded-4"
                                         src="{{ asset('assets/video/comp-profile.mp4') }}"
-                                        poster="{{ asset('assets/img/thumbnail.jpg') }}" type="video/mp4"
+                                        poster="{{ asset('assets/img/polytama1.jpg') }}" type="video/mp4"
                                         data-video-player="data-video-player"></video>
                                     <div class="overlay position-absolute top-0 bottom-0 start-0 end-0 rounded-4 bg-1100 object-cover"
                                         data-overlay="data-overlay"> </div><button
