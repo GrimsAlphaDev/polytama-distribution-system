@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthentificationController;
 use Illuminate\Support\Facades\Route;
+use Prologue\Alerts\Facades\Alert;
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', function () {

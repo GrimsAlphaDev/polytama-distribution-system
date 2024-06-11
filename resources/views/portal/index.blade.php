@@ -9,20 +9,24 @@
     <!-- ===============================================--><!--    Favicons--><!-- ===============================================-->
     <meta name="theme-color" content="#ffffff">
     <!-- ===============================================--><!--    Stylesheets--><!-- ===============================================-->
-    <link rel="stylesheet" href="assets/portal/vendors/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/portal/vendors/swiper/swiper-bundle.min.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="assets/portal/css/theme.min.css" rel="stylesheet" id="style-default">
-    <link href="assets/portal/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
-    <link href="assets/portal/css/user.min.css" rel="stylesheet" id="user-style-default">
+    <link href="{{ asset('assets/portal/css/theme.min.css') }}" rel="stylesheet" id="style-default">
+    <link href="{{ asset('assets/portal/css/user-rtl.min.css') }}" rel="stylesheet" id="user-style-rtl">
+    <link href="{{ asset('assets/portal/css/user.min.css') }}" rel="stylesheet" id="user-style-default">
+    <link href="{{ asset('assets/css/loading.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
         integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
 </head>
 
 <body>
+    @include('components.loading')
+
     <main class="main" id="top">
+        @include('components.notification')
         <div class="content">
             <nav class="navbar navbar-expand-md fixed-top" id="navbar"
                 data-navbar-soft-on-scroll="data-navbar-soft-on-scroll">
@@ -30,7 +34,7 @@
                         <h1 class="navbar-brand w-75 d-md-none">PORPOLDIST</h1>
                     </a><a class="navbar-brand fw-bold d-none d-md-block" href="/">PORTAL POLYTAMA
                         DISTRIBUTION</a><a class="btn btn-primary btn-sm ms-md-x1 mt-lg-0 order-md-1 ms-auto"
-                        href="{{ route('login') }}">LOGIN
+                        href="{{ route('login') }}" id="loginButton">LOGIN
                     </a><button class="navbar-toggler border-0 pe-0" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"
                         aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -47,6 +51,7 @@
                     </div>
                 </div>
             </nav>
+
             <div data-bs-target="#navbar" data-bs-spy="scroll" tabindex="0">
                 <section class="hero-section overflow-hidden position-relative z-0 mb-4 mb-lg-0" id="home">
                     <div class="hero-background">
@@ -383,7 +388,9 @@
                     <div class="row gy-2 py-3 justify-content-center justify-content-md-between">
                         <div class="col-auto ps-0">
                             <p class="text-center text-md-start lh-xl text-1100"> © 2024 Copyright, All Right Reserved,
-                                Made by <a class="fw-semi-bold" href="https://www.linkedin.com/in/haikal-alfandi-61836922a" target="_blank">Mochammad Haikal Alfandi Subagyo </a>❤️
+                                Made by <a class="fw-semi-bold"
+                                    href="https://www.linkedin.com/in/haikal-alfandi-61836922a"
+                                    target="_blank">Mochammad Haikal Alfandi Subagyo </a>❤️
                             </p>
                         </div>
                     </div>
@@ -399,6 +406,22 @@
     <script src="assets/portal/vendors/lodash/lodash.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="assets/portal/js/theme.js"></script>
+
+    <script>
+        const loaderContainer = document.getElementById('loader-container');
+        document.addEventListener("DOMContentLoaded", function() {
+            // Hide loader after page is fully loaded
+            window.addEventListener("load", function() {
+                loaderContainer.style.display = 'none';
+            });
+        });
+
+        const loginButton = document.getElementById('loginButton');
+        loginButton.addEventListener('click', function() {
+            loaderContainer.style.display = 'flex'; // Change to 'flex' to center the loader
+        });
+    </script>
+
 </body>
 
 </html>
