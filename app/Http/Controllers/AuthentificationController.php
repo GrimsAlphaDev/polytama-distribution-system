@@ -30,7 +30,7 @@ class AuthentificationController extends Controller
     {
         switch (Auth::user()->role->name) {
             case 'marketing':
-                return redirect('/marketing');
+                return redirect('/marketing')->with('success', 'Berhasil Login')->with('description', 'Selamat Datang di Halaman Marketing');
                 break;
             case 'transporter':
                 dd('transporter');

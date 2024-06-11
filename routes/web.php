@@ -23,6 +23,6 @@ Route::group([
     'middleware' => 'auth', 'role:marketing'
 ], function () {
     Route::get('/marketing', function () {
-        return 'Berhasil';
+        return view('marketing.dashboard.index');
     })->name('marketing');
 });

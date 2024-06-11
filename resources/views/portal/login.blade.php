@@ -5,9 +5,6 @@
 @endsection
 
 @section('styles')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-        integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
-    <link href="{{ asset('assets/css/loading.css') }}" rel="stylesheet">
     <style>
         body {
             background-image: url("{{ asset('assets/img/login-bg.jpg') }}");
@@ -103,24 +100,4 @@
             </div>
         </div>
     </div>
-    @include('components.loading')
-@endsection
-
-@section('scripts')
-    <script src="{{ asset('assets/js/notification.js') }}"></script>
-    <script>
-        const loaderContainer = document.getElementById('loader-container');
-        document.addEventListener("DOMContentLoaded", function() {
-            // Hide loader after page is fully loaded
-            window.addEventListener("load", function() {
-                loaderContainer.style.display = 'none';
-            });
-        });
-
-        // trigger loading when form is submitted
-        document.querySelector('form').addEventListener('submit', function() {
-            loaderContainer.style.display = 'flex';
-        });
-
-    </script>
 @endsection
