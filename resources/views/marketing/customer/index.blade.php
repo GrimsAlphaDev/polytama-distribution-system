@@ -57,6 +57,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama</th>
+                                                <th>Kota</th>
                                                 <th>Alamat</th>
                                                 <th>Telepon</th>
                                                 <th>Email</th>
@@ -68,19 +69,20 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $customer->name }}</td>
+                                                    <td>{{ $customer->kota }}</td>
                                                     <td>{{ $customer->alamat }}</td>
                                                     <td>{{ $customer->no_telp }}</td>
                                                     <td>{{ $customer->email }}</td>
                                                     <td>
                                                         <div class="d-inline-flex">
-                                                            <a href=""
+                                                            <a href="{{ route('customer.edit', $customer->id) }}"
                                                                 class="btn btn-success btn-sm me-1 text-white">Edit</a>
-                                                            <form action="" method="post">
+                                                            <form action="{{ route('customer.delete', $customer->id) }}" method="post">
                                                                 @csrf
                                                                 @method('delete')
                                                                 <button type="submit"
                                                                     class="btn btn-danger btn-sm text-white"
-                                                                    onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Delete</button>
+                                                                    onclick="return confirm('Apakah anda yakin ingin menghapus data {{ $customer->name }}?')">Delete</button>
                                                             </form>
                                                         </div>
                                                     </td>

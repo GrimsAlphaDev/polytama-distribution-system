@@ -95,7 +95,8 @@
                         <svg class="icon me-2">
                             <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-file"></use>
                         </svg> Projects<span class="badge badge-sm bg-primary ms-2">42</span></a>
-                    <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout') }}" onclick="return confirm('Yakin Ingin Logout ?')">
+                    <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="return confirm('Yakin Ingin Logout ?')">
                         <i class="bi bi-door-open me-3"></i> Logout</a>
                 </div>
             </li>
@@ -104,31 +105,29 @@
     <div class="container-fluid px-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb my-0">
-                @switch(Request::path())
-                    @case('marketing')
-                        <li class="breadcrumb-item">Marpolind</li>
-                        <li class="breadcrumb-item active"><span>Dashboard</span>
-                        </li>
-                    @break
+                @if (request()->is('marketing') || request()->is('marketing/*'))
+                    <li class="breadcrumb-item">Marpolind</li>
+                    <li class="breadcrumb-item active"><span>Dashboard</span>
+                    </li>
+                @elseif (request()->is('customer'))
+                    <li class="breadcrumb-item">Marpolind</li>
+                    <li class="breadcrumb-item active"><span>Customer</span>
+                    </li>
+                @elseif (request()->is('customer/create'))
+                    <li class="breadcrumb-item">Marpolind</li>
+                    <li class="breadcrumb-item"><a href="{{ route('customer') }}" class="text-decoration-none">Customer</a></li>
+                    <li class="breadcrumb-item active"><span>Add New Customer</span></li>
+                @elseif (request()->is('customer/edit/*'))
+                    <li class="breadcrumb-item">Marpolind</li>
+                    <li class="breadcrumb-item"><a href="{{ route('customer') }}" class="text-decoration-none">Customer</a></li>
+                    <li class="breadcrumb-item active"><span>Edit Customer</span></li>
+                @else
+                    <li class="breadcrumb-item active"><span>Marpolind</span></li>
+                @endif
 
-                    @case('customer')
-                        <li class="breadcrumb-item">Marpolind</li>
-                        <li class="breadcrumb-item active"><span>Customer</span>
-                        </li>
-                    @break
 
-                    @case('customer/create')
-                        <li class="breadcrumb-item">Marpolind</li>
-                        <li class="breadcrumb-item"><a href="{{ route('customer') }}">Customer</a></li>
-                        <li class="breadcrumb-item active"><span>Add New Customer</span></li>
-                    @break
 
-                    @default
-                        <li class="breadcrumb-item active"><span>Marpolind</span></li>
-                    @break
-
-                    @endswitch
-                </ol>
-            </nav>
-        </div>
-    </header>
+            </ol>
+        </nav>
+    </div>
+</header>

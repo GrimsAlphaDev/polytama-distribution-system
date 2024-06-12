@@ -42,35 +42,35 @@
 
         <div class="body flex-grow-1">
             <div class="container-lg px-4">
-
                 <div class="row g-4 mb-4">
                     <!-- Table -->
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">Tambah Customer Baru Polytama</div>
+                            <div class="card-header">Edit Customer Polytama</div>
                             <div class="card-body">
-                                <form action="{{ route('customer.insert') }}"  method="POST">
+                                <form action="{{ route('customer.update', $customer->id) }}"  method="POST">
                                     @csrf
+                                    @method('PUT')
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Nama Customer</label>
-                                        <input type="text" class="form-control" id="name" name="name" required min="3" value="{{ old('name') }}">
+                                        <input type="text" class="form-control" id="name" name="name" required min="3" value="{{ (old('name')  ? old('name') : $customer->name) }}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" required value="{{ old('email') }}">
+                                        <input type="email" class="form-control" id="email" name="email" required value="{{ (old('email')  ? old('email') : $customer->email) }}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Nomor Telepon</label>
-                                        <input type="text" class="form-control" id="phone" name="phone" required oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{ old('phone') }}">
+                                        <input type="text" class="form-control" id="phone" name="phone" required oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" value="{{ (old('phone')  ? old('phone') : $customer->no_telp) }}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="city" class="form-label">Kota</label>
-                                        <input type="text" class="form-control" id="city" name="city" required value="{{ old('city') }}">
+                                        <input type="text" class="form-control" id="city" name="city" required value="{{ (old('city')  ? old('city') : $customer->kota) }}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Alamat</label> 
                                         <span class="text-muted">(Format Alamat : Nama Perusahaan, Jalan Kota Kode Pos )</span>
-                                        <textarea class="form-control" id="address" name="address" required rows="3">{{ old('address') }}</textarea>
+                                        <textarea class="form-control" id="address" name="address" required rows="3">{{ (old('address')  ? old('address') : $customer->alamat) }}</textarea>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Simpan</button> 
                                 </form>

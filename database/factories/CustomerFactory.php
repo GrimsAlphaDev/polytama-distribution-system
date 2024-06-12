@@ -19,11 +19,11 @@ class CustomerFactory extends Factory
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->email(),
-            'alamat' => $this->faker->address,
+            'kota' => $this->faker->city,
+            'alamat' => $this->faker->company . ', ' . $this->faker->streetAddress . ' ' . $this->faker->city . ' ' . $this->faker->state . ' ' . $this->faker->postcode,
             'no_telp' => $this->faker->phoneNumber,
-            // modify created and updated at to be a random month from january 2024 to june 2024
-            'created_at' => $this->faker->dateTimeBetween('2024-01-01', '2024-06-30'),
-            'updated_at' => $this->faker->dateTimeBetween('2024-01-01', '2024-06-30'),
+            'created_at' => $this->faker->dateTimeBetween('2024-01-01', '2024-06-01'),
+            'updated_at' => $this->faker->dateTimeBetween('2024-01-01', '2024-06-01'),
         ];
     }
 }

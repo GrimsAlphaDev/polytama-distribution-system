@@ -3,9 +3,11 @@
     <h4 class="alert-heading" id="notification-message">Ada Kesalahan</h4>
     <hr>
     <p class="mb-0">
+        <ul>
         @foreach ($errors->all() as $error)
-            <span>{{ $error }}</span>
+            <li>{{ $error }}</li>
         @endforeach
+        </ul>
     </p>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
         id="notification-close"></button>

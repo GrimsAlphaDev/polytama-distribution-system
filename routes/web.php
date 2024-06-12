@@ -29,4 +29,9 @@ Route::group([
 
     Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
     Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
+    Route::post('/customer/insert', [CustomerController::class, 'insert'])->name('customer.insert');
+    Route::get('/customer/edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
+    Route::put('/customer/update/{id}', [CustomerController::class, 'update'])->name('customer.update');
+    ROute::delete('/customer/delete/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
+    
 });
