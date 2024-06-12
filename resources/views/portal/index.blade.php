@@ -20,10 +20,27 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
         integrity="sha384-4LISF5TTJX/fLmGSxO53rV4miRxdg84mZsxmO8Rx5jGtp/LbrixFETvWa5a6sESd" crossorigin="anonymous">
+    <style>
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: auto;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .alert-show {
+            opacity: 1;
+        }
+    </style>
 </head>
 
 <body>
     @include('components.loading')
+
+    @include('components.notification')
 
     <main class="main" id="top">
         @include('components.notification')
@@ -419,6 +436,22 @@
         const loginButton = document.getElementById('loginButton');
         loginButton.addEventListener('click', function() {
             loaderContainer.style.display = 'flex'; // Change to 'flex' to center the loader
+        });
+    </script>
+
+    <script src="{{ asset('assets/js/notification.js') }}"></script>
+    <script>
+        const loaderContainer = document.getElementById('loader-container');
+        document.addEventListener("DOMContentLoaded", function() {
+            // Hide loader after page is fully loaded
+            window.addEventListener("load", function() {
+                loaderContainer.style.display = 'none';
+            });
+        });
+
+        // trigger loading when form is submitted
+        document.querySelector('form').addEventListener('submit', function() {
+            loaderContainer.style.display = 'flex';
         });
     </script>
 

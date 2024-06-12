@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthentificationController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 use Prologue\Alerts\Facades\Alert;
 
@@ -25,4 +26,7 @@ Route::group([
     Route::get('/marketing', function () {
         return view('marketing.dashboard.index');
     })->name('marketing');
+
+    Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
+    Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
 });

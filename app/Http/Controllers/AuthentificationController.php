@@ -30,7 +30,7 @@ class AuthentificationController extends Controller
     {
         switch (Auth::user()->role->name) {
             case 'marketing':
-                return redirect('/marketing')->with('success', 'Berhasil Login')->with('description', 'Selamat Datang di Halaman Marketing');
+                return redirect('/marketing')->with('success', 'Berhasil Login')->with('description', 'Selamat Datang di Dashboard Marketing');
                 break;
             case 'transporter':
                 dd('transporter');
@@ -58,8 +58,6 @@ class AuthentificationController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->withErrors([
-            'Error' => 'Terjadi Kesalahan'
-        ]);
+        return redirect('/')->with('success', 'Sukses')->with('description', 'Berhasil Logout');
     }
 }

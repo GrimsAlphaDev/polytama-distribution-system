@@ -35,19 +35,7 @@
 
 @section('content')
 
-    @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible fade" role="alert" id="notification">
-            <h4 class="alert-heading" id="notification-message">Login Gagal</h4>
-            <hr>
-            <p class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <span>{{ $error }}</span>
-                @endforeach
-            </p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-                id="notification-close"></button>
-        </div>
-    @endif
+    @include('components.notification')
 
     <div class="min-vh-100 d-flex flex-row align-items-center">
         <div class="container">
