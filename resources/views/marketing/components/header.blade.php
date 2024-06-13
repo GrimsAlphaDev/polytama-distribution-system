@@ -16,6 +16,12 @@
                 {{ request()->is('customer') || request()->is('customer') ? 'active' : '' }}
                 "
                     href="{{ route('customer') }}">Customer</a></li>
+            <li class="nav-item"><a
+                    class="nav-link
+                {{ request()->is('order') || request()->is('order*') ? 'active' : '' }}
+                "
+                    href="{{ route('order') }}">Customer's Order</a></li>
+
         </ul>
         <ul class="header-nav ms-auto"></ul>
         <ul class="header-nav">
@@ -115,12 +121,32 @@
                     </li>
                 @elseif (request()->is('customer/create'))
                     <li class="breadcrumb-item">Marpolind</li>
-                    <li class="breadcrumb-item"><a href="{{ route('customer') }}" class="text-decoration-none">Customer</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('customer') }}"
+                            class="text-decoration-none">Customer</a></li>
                     <li class="breadcrumb-item active"><span>Add New Customer</span></li>
                 @elseif (request()->is('customer/edit/*'))
                     <li class="breadcrumb-item">Marpolind</li>
-                    <li class="breadcrumb-item"><a href="{{ route('customer') }}" class="text-decoration-none">Customer</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('customer') }}"
+                            class="text-decoration-none">Customer</a></li>
                     <li class="breadcrumb-item active"><span>Edit Customer</span></li>
+                @elseif (request()->is('order'))
+                    <li class="breadcrumb-item">Marpolind</li>
+                    <li class="breadcrumb-item active"><span>Customer's Order</span>
+                    @elseif (request()->is('order/create'))
+                    <li class="breadcrumb-item">Marpolind</li>
+                    <li class="breadcrumb-item"><a href="{{ route('order') }}"
+                            class="text-decoration-none">Customer's Order</a></li>
+                    <li class="breadcrumb-item active"><span>Add New Order</span></li>
+                @elseif (request()->is('order/show/*'))
+                    <li class="breadcrumb-item">Marpolind</li>
+                    <li class="breadcrumb-item"><a href="{{ route('order') }}"
+                            class="text-decoration-none">Customer's Order</a></li>
+                    <li class="breadcrumb-item active"><span>Detail Order</span></li>
+                @elseif (request()->is('order/edit/*'))
+                    <li class="breadcrumb-item">Marpolind</li>
+                    <li class="breadcrumb-item"><a href="{{ route('order') }}"
+                            class="text-decoration-none">Customer's Order</a></li>
+                    <li class="breadcrumb-item active"><span>Edit Order</span></li>
                 @else
                     <li class="breadcrumb-item active"><span>Marpolind</span></li>
                 @endif

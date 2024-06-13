@@ -1,6 +1,6 @@
 @if ($errors->any())
 <div class="alert alert-danger alert-dismissible fade" role="alert" id="notification">
-    <h4 class="alert-heading" id="notification-message">Ada Kesalahan</h4>
+    <h4 class="alert-heading" id="notification-message">Terjadi Kesalahan</h4>
     <hr>
     <p class="mb-0">
         <ul>

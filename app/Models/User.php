@@ -21,7 +21,8 @@ class User extends Authenticatable
         'email',
         'password',
         'nik',
-        'role_id'
+        'role_id',
+        'transporter_id',
     ];
 
     /**
@@ -51,4 +52,25 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'customer_id');
+    }
+
+    public function ordersTransporter()
+    {
+        return $this->hasMany(Order::class, 'transporter_id');
+    }
+
+    public function ordersDriver()
+    {
+        return $this->hasMany(Order::class, 'driver_id');
+    }
+
+    public function transporter()
+    {
+        return $this->belongsTo(User::class, 'transporter_id');
+    }
+    
 }

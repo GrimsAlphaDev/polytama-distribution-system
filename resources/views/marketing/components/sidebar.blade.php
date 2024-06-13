@@ -25,8 +25,18 @@
                 {{ request()->is('customer.create') || request()->is('customer/create*') ? 'active' : '' }}"
                 href="{{ route('customer.create') }}">
                 <i class="bi bi-person-add me-3"></i> Add New Customer</a></li>
+
+        <li class="nav-item"><a
+                class="nav-link 
+                {{ request()->is('order') || request()->is('order/show/*') || request()->is('order/edit/*') ? 'active' : '' }}"
+                href="{{ route('order') }}">
+                <i class="bi bi-newspaper me-3"></i> Customer's Order</a></li>
+
+        <li class="nav-item"><a
+                class="nav-link 
+                {{ request()->is('order.create') || request()->is('order/create*') ? 'active' : '' }}"
+                href="{{ route('order.create') }}">
+                <i class="bi bi-file-earmark-plus me-3"></i> Add New Order</a></li>
+        
     </ul>
-    <div class="sidebar-footer border-top d-none d-md-flex">
-        <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
-    </div>
 </div>

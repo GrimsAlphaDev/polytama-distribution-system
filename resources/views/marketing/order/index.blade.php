@@ -48,7 +48,7 @@
                     <!-- Table -->
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">Customers Data</div>
+                            <div class="card-header">Customer's Order</div>
                             <div class="card-body">
                                 <!-- Add a wrapper around the table for horizontal scrolling -->
                                 <div class="table-responsive">
@@ -56,34 +56,45 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama</th>
-                                                <th>Kota</th>
-                                                <th>Alamat</th>
-                                                <th>Telepon</th>
-                                                <th>Email</th>
+                                                <th>Order Number</th>
+                                                <th>Customer</th>
+                                                <th>Transporter</th>
+                                                <th>Driver</th>
+                                                <th>Keterangan</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($customers as $customer)
-                                                <tr>
+                                            @foreach ($orders as $order)
+                                                <tr 
+                                                {{-- if status 'Menunggu Konfirmasi Transporter' edit row to yellow --}}
+                                                @if ($order->status == 'Menunggu Konfirmasi Transporter')
+                                                    class="table-warning"
+                                                @endif
+                                                >
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $customer->name }}</td>
-                                                    <td>{{ $customer->kota }}</td>
-                                                    <td>{{ $customer->alamat }}</td>
-                                                    <td>{{ $customer->no_telp }}</td>
-                                                    <td>{{ $customer->email }}</td>
+                                                    <td>{{ $order->order_number }}</td>
+                                                    <td>{{ $order->customer->name }}</td>
+                                                    <td>{{ $order->transporter->name }}</td>
+                                                    {{-- if order->driver->name is null --}}
+                                                    <td>{{ $order->driver->name ?? 'Driver Belum Ditunjuk' }}</td>
+                                                    <td>{{ $order->keterangan }}</td>
+                                                    <td>{{ $order->status }}</td>
                                                     <td>
                                                         <div class="d-inline-flex">
-                                                            <a href="{{ route('customer.edit', $customer->id) }}"
+                                                            <a href="{{ route('order.edit', $order->id) }}"
                                                                 class="btn btn-success btn-sm me-1 text-white">Edit</a>
-                                                            <form action="{{ route('customer.delete', $customer->id) }}" method="post">
+                                                            <form action="{{ route('order.delete', $order->id) }}" method="post">
                                                                 @csrf
                                                                 @method('delete')
                                                                 <button type="submit"
                                                                     class="btn btn-danger btn-sm text-white"
-                                                                    onclick="return confirm('Apakah anda yakin ingin menghapus data {{ $customer->name }}?')">Delete</button>
+                                                                    onclick="return confirm('Apakah anda yakin ingin menghapus data {{ $order->customer->name }}?')">Delete</button>
                                                             </form>
+                                                            {{-- detail pesanan --}}
+                                                            <a href="{{ route('order.show', $order->id) }}"
+                                                                class="btn btn-primary btn-sm ms-1 text-white">Detail</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -150,7 +161,7 @@
         const year = date.getFullYear();
 
         // get customer data
-        const customers = @json($customers);
+        const customers = @json($orders);
         // count customer data from each month
         const countCustomer = customers.reduce((acc, customer) => {
             const month = new Date(customer.created_at).getMonth();
@@ -158,15 +169,10 @@
             return acc;
         }, {});
 
-        // get customer kota from customer.alamat second (,)
-        // const kotaCustomer = customers.map(customer => customer.alamat.split(',')[2].trim());
-        // console.log(kotaCustomer)
-
-
         const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
             'November', 'December'
         ];
-        // const datapoints;
+
         // get datapoints from countCustomer
         const datapoints = labels.map((label, index) => countCustomer[index] || 0);
         const data = {
