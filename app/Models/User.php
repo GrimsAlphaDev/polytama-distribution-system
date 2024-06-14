@@ -73,4 +73,8 @@ class User extends Authenticatable
         return $this->belongsTo(User::class, 'transporter_id');
     }
     
+    public function armada()
+    {
+        return $this->hasOne(Armada::class);
+    }
 }

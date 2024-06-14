@@ -190,7 +190,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Data Polytama Customer Baru Polytama Tahun ' + year
+                        text: 'Data Perolehan Customer Baru Polytama Tahun ' + year
                     },
                 },
                 interaction: {

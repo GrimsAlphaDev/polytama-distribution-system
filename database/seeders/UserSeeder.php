@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         // get userfactory
         $marketing = [
-            'nik' => '123456',
+            'nik' => 123456,
             'name' => fake()->name(),
             'email' => fake()->unique()->email(),
             'email_verified_at' => now(),
@@ -28,6 +28,17 @@ class UserSeeder extends Seeder
         ];
 
         $transporter = [
+            'nik' => 123123,
+            'name' => fake()->name(),
+            'email' => fake()->unique()->email(),
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+            'role_id' => 2,
+            'transporter_id' => null,
+        ];
+
+        $transporter2 = [
             'nik' => fake()->unique()->randomNumber(6, true),
             'name' => fake()->name(),
             'email' => fake()->unique()->email(),
@@ -60,10 +71,35 @@ class UserSeeder extends Seeder
             'transporter_id' => 2,
         ];
 
+        $driver3 = [
+            'nik' => fake()->unique()->randomNumber(6, true),
+            'name' => fake()->name(),
+            'email' => fake()->unique()->email(),
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+            'role_id' => 3,
+            'transporter_id' => 3,
+        ];
+
+        $driver4 = [
+            'nik' => fake()->unique()->randomNumber(6, true),
+            'name' => fake()->name(),
+            'email' => fake()->unique()->email(),
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
+            'role_id' => 3,
+            'transporter_id' => 3,
+        ];
+
 
         User::create($marketing);
         User::create($transporter);
+        User::create($transporter2);
         User::create($driver);
         User::create($driver2);
+        User::create($driver3);
+        User::create($driver4);
     }
 }

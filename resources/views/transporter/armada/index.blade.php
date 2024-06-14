@@ -17,13 +17,13 @@
                 width: 300px;
             }
         }
+
         @media (min-width: 768px) {
             #myChart {
                 height: 400px;
                 width: 400px;
             }
         }
-
     </style>
 @endsection
 
@@ -32,14 +32,13 @@
 @endsection
 
 @section('content')
-    
     @include('components.notification')
 
-    @include('marketing.components.sidebar')
+    @include('transporter.components.sidebar')
 
     <div class="wrapper d-flex flex-column min-vh-100">
-        
-        @include('marketing.components.header')
+
+        @include('transporter.components.header')
 
         <div class="body flex-grow-1">
             <div class="container-lg px-4">
@@ -48,7 +47,7 @@
                     <!-- Table -->
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">Customer's Order</div>
+                            <div class="card-header">Customers Data</div>
                             <div class="card-body">
                                 <!-- Add a wrapper around the table for horizontal scrolling -->
                                 <div class="table-responsive">
@@ -56,45 +55,41 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Order Number</th>
-                                                <th>Customer</th>
-                                                <th>Transporter</th>
-                                                <th>Driver</th>
-                                                <th>Keterangan</th>
-                                                <th>Status</th>
+                                                <th>Nama Kendaraan</th>
+                                                <th>Tipe Kendaraan</th>
+                                                <th>Brand</th>
+                                                <th>Tahun Pembuatan</th>
+                                                <th>Kondisi Kendaraan</th>
+                                                <th>Plat Nomor</th>
+                                                <th>Muatan Maksimal</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($orders as $order)
-                                                <tr 
-                                                {{-- if status 'Menunggu Konfirmasi Transporter' edit row to yellow --}}
-                                                @if ($order->status == 'Menunggu Konfirmasi Transporter')
-                                                    class="table-warning"
-                                                @endif
-                                                >
+                                            @foreach ($armadas as $armada)
+                                                <tr @if ($armada->condition == 'Rusak') class="table-danger"
+                                                    @elseif($armada->condition == 'Sedang diperbaiki')
+                                                        class="table-warning" @endif>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $order->order_number }}</td>
-                                                    <td>{{ $order->customer->name }}</td>
-                                                    <td>{{ $order->transporter->name }}</td>
-                                                    {{-- if order->driver->name is null --}}
-                                                    <td>{{ $order->driver->name ?? 'Driver Belum Ditunjuk' }}</td>
-                                                    <td>{{ $order->keterangan }}</td>
-                                                    <td>{{ $order->status }}</td>
+                                                    <td>{{ $armada->name }}</td>
+                                                    <td>{{ $armada->brand }}</td>
+                                                    <td>{{ $armada->type }}</td>
+                                                    <td>{{ $armada->year }}</td>
+                                                    <td>
+                                                        {{ $armada->condition }}</td>
+                                                    <td>{{ $armada->license_plate }}</td>
+                                                    <td>{{ $armada->max_load }} <span class="fw-bold">KG</span></td>
                                                     <td>
                                                         <div class="d-inline-flex">
-                                                            <a href="{{ route('order.edit', $order->id) }}"
+                                                            <a href=""
                                                                 class="btn btn-success btn-sm me-1 text-white">Edit</a>
-                                                            <form action="{{ route('order.delete', $order->id) }}" method="post">
+                                                            <form action="" method="post">
                                                                 @csrf
                                                                 @method('delete')
                                                                 <button type="submit"
                                                                     class="btn btn-danger btn-sm text-white"
-                                                                    onclick="return confirm('Apakah anda yakin ingin menghapus data {{ $order->customer->name }}?')">Delete</button>
+                                                                    onclick="return confirm('Apakah anda yakin ingin menghapus data ?')">Delete</button>
                                                             </form>
-                                                            {{-- detail pesanan --}}
-                                                            <a href="{{ route('order.show', $order->id) }}"
-                                                                class="btn btn-primary btn-sm ms-1 text-white">Detail</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -161,7 +156,7 @@
         const year = date.getFullYear();
 
         // get customer data
-        const customers = @json($orders);
+        const customers = @json($armadas);
         // count customer data from each month
         const countCustomer = customers.reduce((acc, customer) => {
             const month = new Date(customer.created_at).getMonth();
@@ -169,16 +164,21 @@
             return acc;
         }, {});
 
+        // get customer kota from customer.alamat second (,)
+        // const kotaCustomer = customers.map(customer => customer.alamat.split(',')[2].trim());
+        // console.log(kotaCustomer)
+
+
         const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
             'November', 'December'
         ];
-
+        // const datapoints;
         // get datapoints from countCustomer
         const datapoints = labels.map((label, index) => countCustomer[index] || 0);
         const data = {
             labels: labels,
             datasets: [{
-                label: 'Pesanan Customer',
+                label: 'Customer Baru Polytama',
                 data: datapoints,
                 borderColor: 'blue',
                 fill: false,
@@ -196,7 +196,7 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Data Pesanan Customer Polytama Tahun ' + year
+                        text: 'Data Perolehan Customer Baru Polytama Tahun ' + year
                     },
                 },
                 interaction: {
@@ -213,7 +213,7 @@
                         display: true,
                         title: {
                             display: true,
-                            text: 'Jumlah Pesanan Customer'
+                            text: 'Jumlah Perolehan Customer'
                         },
                         suggestedMin: 0,
                         suggestedMax: 100
