@@ -67,7 +67,8 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($armadas as $armada)
-                                                <tr @if ($armada->condition == 'Rusak') class="table-danger"
+                                                <tr
+                                                    @if ($armada->condition == 'Rusak') class="table-danger"
                                                     @elseif($armada->condition == 'Sedang diperbaiki')
                                                         class="table-warning" @endif>
                                                     <td>{{ $loop->iteration }}</td>
@@ -81,14 +82,14 @@
                                                     <td>{{ $armada->max_load }} <span class="fw-bold">KG</span></td>
                                                     <td>
                                                         <div class="d-inline-flex">
-                                                            <a href=""
+                                                            <a href="{{ route('armada.edit', $armada->id) }}"
                                                                 class="btn btn-success btn-sm me-1 text-white">Edit</a>
-                                                            <form action="" method="post">
+                                                            <form action="{{ route('armada.delete', $armada->id) }}" method="post">
                                                                 @csrf
                                                                 @method('delete')
                                                                 <button type="submit"
                                                                     class="btn btn-danger btn-sm text-white"
-                                                                    onclick="return confirm('Apakah anda yakin ingin menghapus data ?')">Delete</button>
+                                                                    onclick="return confirm('Apakah anda yakin ingin menghapus data kendaraan {{ $armada->name }} ?')">Delete</button>
                                                             </form>
                                                         </div>
                                                     </td>
@@ -106,6 +107,11 @@
                     <!-- Table -->
                     <div class="col-12">
                         <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h4 class="card-title">Data Kondisi Kendaraan</h4>
+                                </div>
+                            </div>
                             <div class="card-body">
                                 <div class="mt-5">
                                     <canvas id="myChart" class="w-100"></canvas>
@@ -155,73 +161,37 @@
         const date = new Date();
         const year = date.getFullYear();
 
-        // get customer data
-        const customers = @json($armadas);
-        // count customer data from each month
-        const countCustomer = customers.reduce((acc, customer) => {
-            const month = new Date(customer.created_at).getMonth();
-            acc[month] = acc[month] ? acc[month] + 1 : 1;
-            return acc;
-        }, {});
+        // get armada
+        const armadas = @json($armadas);
 
-        // get customer kota from customer.alamat second (,)
-        // const kotaCustomer = customers.map(customer => customer.alamat.split(',')[2].trim());
-        // console.log(kotaCustomer)
+        const goodCondition = armadas.filter(armada => armada.condition === 'Baik').length;
+        const repairCondition = armadas.filter(armada => armada.condition === 'Sedang diperbaiki').length;
+        const badCondition = armadas.filter(armada => armada.condition === 'Rusak').length;
 
-
-        const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
-            'November', 'December'
-        ];
-        // const datapoints;
-        // get datapoints from countCustomer
-        const datapoints = labels.map((label, index) => countCustomer[index] || 0);
         const data = {
-            labels: labels,
+            labels: [
+                'Baik',
+                'Sedang Diperbaiki',
+                'Rusak'
+            ],
             datasets: [{
-                label: 'Customer Baru Polytama',
-                data: datapoints,
-                borderColor: 'blue',
-                fill: false,
-                cubicInterpolationMode: 'monotone',
-                tension: 0.4
+                label: 'Data Kondisi Kendaraan',
+                data: [goodCondition, repairCondition, badCondition],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
             }]
         };
 
         // Config block
         const config = {
-            type: 'line',
+            type: 'polarArea',
             data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Data Perolehan Customer Baru Polytama Tahun ' + year
-                    },
-                },
-                interaction: {
-                    intersect: false,
-                },
-                scales: {
-                    x: {
-                        display: true,
-                        title: {
-                            display: true
-                        }
-                    },
-                    y: {
-                        display: true,
-                        title: {
-                            display: true,
-                            text: 'Jumlah Perolehan Customer'
-                        },
-                        suggestedMin: 0,
-                        suggestedMax: 100
-                    }
-                }
-            },
+            options: {}
         };
-
 
         // Render chart
         window.onload = function() {

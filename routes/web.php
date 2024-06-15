@@ -56,4 +56,7 @@ Route::group([
     Route::get('/armada', [ArmadaController::class, 'index'])->name('armada');
     Route::get('/armada/create' , [ArmadaController::class, 'create'])->name('armada.create');
     Route::post('/armada/insert', [ArmadaController::class, 'store'])->name('armada.insert');
+    Route::get('/armada/edit/{id}', [ArmadaController::class, 'edit'])->name('armada.edit');
+    Route::put('/armada/update/{id}', [ArmadaController::class, 'update'])->name('armada.update');
+    Route::delete('/armada/delete/{id}', [ArmadaController::class, 'destroy'])->name('armada.delete');
 });

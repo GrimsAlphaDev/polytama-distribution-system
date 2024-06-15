@@ -80,24 +80,60 @@ class ArmadaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Armada $armada)
+    public function edit($id)
     {
-        //
+        $armada = Armada::find($id);
+
+        return view('transporter.armada.edit', compact('armada'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateArmadaRequest $request, Armada $armada)
+    public function update(UpdateArmadaRequest $request, $id)
     {
-        //
+
+        $request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'brand' => 'required',
+            'year' => 'required',
+            'condition' => 'required',
+            'license_plate' => 'required',
+            'max_weight' => 'required',
+        ],[
+            'name.required' => 'Nama armada harus diisi',
+            'type.required' => 'Tipe armada harus diisi',
+            'brand.required' => 'Merek armada harus diisi',
+            'year.required' => 'Tahun armada harus diisi',
+            'condition.required' => 'Kondisi armada harus diisi',
+            'license_plate.required' => 'Plat nomor armada harus diisi',
+            'max_weight.required' => 'Batas muatan armada harus diisi',
+        ]);
+
+        $armada = Armada::find($id);
+        $armada->name = $request->name;
+        $armada->type = $request->type;
+        $armada->brand = $request->brand;
+        $armada->year = $request->year;
+        $armada->condition = $request->condition;
+        $armada->license_plate = $request->license_plate;
+        $armada->max_load = $request->max_weight;
+        $armada->update();
+
+        return redirect()->route('armada')->with('success', 'Data armada berhasil diubah');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Armada $armada)
+    public function destroy($id)
     {
-        //
+        $armada = Armada::find($id);
+
+        $armada->delete();
+
+        return redirect()->route('armada')->with('success', 'Data armada berhasil dihapus');
     }
 }
