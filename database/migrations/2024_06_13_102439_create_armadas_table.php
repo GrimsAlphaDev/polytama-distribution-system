@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('condition');
             $table->string('license_plate');
             $table->integer('max_load');
+            $table->string('status');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });

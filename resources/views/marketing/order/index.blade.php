@@ -71,6 +71,10 @@
                                                 {{-- if status 'Menunggu Konfirmasi Transporter' edit row to yellow --}}
                                                 @if ($order->status == 'Menunggu Konfirmasi Transporter')
                                                     class="table-warning"
+                                                @elseif ($order->status == 'Pesanan Ditolak oleh Transporter')
+                                                    class="table-danger"
+                                                @elseif ($order->status == 'Driver dan Armada Telah Dipilih')
+                                                    class="table-info"
                                                 @endif
                                                 >
                                                     <td>{{ $loop->iteration }}</td>

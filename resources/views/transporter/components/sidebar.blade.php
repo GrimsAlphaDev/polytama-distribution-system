@@ -23,5 +23,11 @@
             {{ request()->is('armada/create') ? 'active' : '' }}"
                 href="{{ route('armada.create') }}">
                 <i class="bi bi-truck-flatbed me-3"></i> Tambah Armada</a></li>
+        <li class="nav-item"><a
+                class="nav-link
+            {{ request()->is('order-request') ? 'active' : '' }}"
+                href="{{ route('order-request') }}">
+                <i class="bi bi-newspaper me-3"></i> Order Request</a></li>
+        
     </ul>
 </div>

@@ -21,10 +21,11 @@ class ArmadaFactory extends Factory
             'type' => $this->faker->randomElement(['Engkel', 'Gandeng', 'Tronton']),
             'brand' => $this->faker->randomElement(['Hino', 'Mitsubishi', 'Mercedes Benz']),
             'year' => $this->faker->numberBetween(2010, 2021),
-            'condition' => $this->faker->randomElement(['Baik', 'Rusak', 'Sedang diperbaiki']),
+            'condition' => $this->faker->randomElement(['Baik']),
             'license_plate' => 'e ' . $this->faker->unique()->randomNumber(6, true) . ' ' . $this->faker->randomLetter() . $this->faker->randomLetter(),
             'max_load' => $this->faker->numberBetween(1000, 10000),
             'user_id' => $this->faker->numberBetween(2, 3),
+            'status' => $this->faker->randomElement(['Available']),
         ];
     }
 }

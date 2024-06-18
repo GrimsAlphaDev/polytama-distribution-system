@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
         ];
 
         $transporter2 = [
-            'nik' => fake()->unique()->randomNumber(6, true),
+            'nik' => 321321,
             'name' => fake()->name(),
             'email' => fake()->unique()->email(),
             'email_verified_at' => now(),

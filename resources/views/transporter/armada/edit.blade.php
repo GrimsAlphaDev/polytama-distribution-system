@@ -74,13 +74,22 @@
                                     <div class="mb-3">
                                         <label for="license_plate" class="form-label">Nomor Polisi</label>
                                         <input type="text" class="form-control" id="license_plate" name="license_plate"
-                                            value="{{ old('license_plate') ? old('license_plate') : $armada->license_plate }}"
+                                            value="{{ old('license_plate') ? old('license_plate') : $armada->license_plate }}">
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="max_weight" class="form-label">Berat Maksimum</label>
                                         <input type="number" class="form-control" id="max_weight" name="max_weight" min="1"
                                             value="{{ old('max_weight') ? old('max_weight') : $armada->max_load }}" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="Available" {{ old('status') ? (old('status') == 'Available' ? 'selected' : '') : ($armada->status == 'Available' ? 'selected' : '') }}>Available</option>
+                                            <option value="On Shipping" {{ old('status') ? (old('status') == 'On Shipping' ? 'selected' : '') : ($armada->status == 'On Shipping' ? 'selected' : '') }}>On Shipping</option>
+                                            <option value="Not Available" {{ old('status') ? (old('status') == 'Not Available' ? 'selected' : '') : ($armada->status == 'Not Available' ? 'selected' : '') }}>Not Available</option>
+                                        </select>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary">Simpan</button>

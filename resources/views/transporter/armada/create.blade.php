@@ -81,6 +81,17 @@
                                             value="{{ old('max_weight') }}" required>
                                     </div>
 
+                                    <div class="mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                        <select class="form-control" id="status" name="status" data-allow-clear="true"
+                                            data-placeholder="Pilih Status" required>
+                                            <option disabled selected>-- Pilih Status --</option>
+                                            <option value="Available" {{ old('status') == 'Available' ? 'selected' : '' }}>Available</option>
+                                            <option value="Not Available" {{ old('status') == 'Not Available' ? 'selected' : '' }}>Not Available</option>
+                                            <option value="On Shipping" {{ old('status') == 'On Shipping' ? 'selected' : '' }}>On Shipping</option>
+                                        </select>
+                                    </div>
+
                                     <button type="submit" class="btn btn-primary">Simpan</button>
                                 </form>
                             </div>

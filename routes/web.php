@@ -4,6 +4,7 @@ use App\Http\Controllers\ArmadaController;
 use App\Http\Controllers\AuthentificationController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderRequestController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'guest'], function () {
@@ -59,4 +60,9 @@ Route::group([
     Route::get('/armada/edit/{id}', [ArmadaController::class, 'edit'])->name('armada.edit');
     Route::put('/armada/update/{id}', [ArmadaController::class, 'update'])->name('armada.update');
     Route::delete('/armada/delete/{id}', [ArmadaController::class, 'destroy'])->name('armada.delete');
+
+    Route::get('/order-request', [OrderRequestController::class, 'index'])->name('order-request');
+    Route::get('/order-request/show/{id}', [OrderRequestController::class, 'show'])->name('order-request.show');
+    Route::post('/order-request/accept/{id}', [OrderRequestController::class, 'accept'])->name('order-request.accept');
+    Route::post('/order-request/reject/{id}', [OrderRequestController::class, 'reject'])->name('order-request.reject');
 });

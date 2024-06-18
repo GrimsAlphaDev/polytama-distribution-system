@@ -62,15 +62,20 @@
                                                 <th>Kondisi Kendaraan</th>
                                                 <th>Plat Nomor</th>
                                                 <th>Muatan Maksimal</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($armadas as $armada)
                                                 <tr
-                                                    @if ($armada->condition == 'Rusak') class="table-danger"
-                                                    @elseif($armada->condition == 'Sedang diperbaiki')
-                                                        class="table-warning" @endif>
+                                                    @if ($armada->status == 'Available')
+                                                        class="table-success" 
+                                                    @elseif ($armada->status == 'Not Available')
+                                                        class="table-danger"
+                                                    @elseif ($armada->status == "On Shipping")
+                                                        class="table-warning"
+                                                    @endif>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $armada->name }}</td>
                                                     <td>{{ $armada->brand }}</td>
@@ -80,6 +85,7 @@
                                                         {{ $armada->condition }}</td>
                                                     <td>{{ $armada->license_plate }}</td>
                                                     <td>{{ $armada->max_load }} <span class="fw-bold">KG</span></td>
+                                                    <td>{{ $armada->status }}</td>
                                                     <td>
                                                         <div class="d-inline-flex">
                                                             <a href="{{ route('armada.edit', $armada->id) }}"

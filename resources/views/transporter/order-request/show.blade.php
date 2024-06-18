@@ -6,26 +6,9 @@
     <link rel="stylesheet" href="{{ asset('assets/marketing/css/simplebar.css') }}">
     <!-- Main styles for this application-->
     <link href="{{ asset('assets/marketing/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/marketing/package/chartjs/dist/css/coreui-chartjs.css') }}" rel="stylesheet">
     <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <style>
-        /* optimize height and width of mychart on every device */
-        @media (max-width: 768px) {
-            #myChart {
-                height: 300px;
-                width: 300px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            #myChart {
-                height: 400px;
-                width: 400px;
-            }
-        }
-    </style>
 @endsection
 
 @section('title')
@@ -35,11 +18,11 @@
 @section('content')
     @include('components.notification')
 
-    @include('marketing.components.sidebar')
+    @include('transporter.components.sidebar')
 
     <div class="wrapper d-flex flex-column min-vh-100">
 
-        @include('marketing.components.header')
+        @include('transporter.components.header')
 
         <div class="body flex-grow-1">
             <div class="container-lg px-4">
@@ -182,17 +165,13 @@
                                     {{-- create 3 button right aligned for back edit and delete --}}
                                     <div class="col-12">
                                         <div class="d-flex justify-content-end">
-                                            <a href="{{ route('order') }}" class="btn btn-secondary">Kembali</a>
-                                            <a href="{{ route('order.edit', $order->id) }}"
-                                                class="btn btn-primary ms-2">Edit
-                                                Pesanan</a>
-                                            <form action="{{ route('order.delete', $order->id) }}" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger ms-2 text-white"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus pesanan ini?')">Hapus
-                                                    Pesanan</button>
-                                            </form>
+                                            <a href="{{ route('order-request') }}" class="btn btn-secondary">Kembali</a>
+                                            @if ($order->status == 'Menunggu Konfirmasi Transporter')
+                                                <button data-bs-toggle="modal" data-bs-target="#reject"
+                                                    class="btn btn-danger text-white ms-2">Reject Customer Order</button>
+                                                <button data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                    class="btn btn-primary ms-2">Accept Customer Order</button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -201,6 +180,87 @@
                     </div>
                     @include('marketing.components.footer')
                 </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Accept Customer Order</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form action="{{ route('order-request.accept', $order->order_number) }}" method="POST"
+                                id="modalForm">
+                                <div class="modal-body">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="driver_id" class="form-label">Pilih Driver</label>
+                                        <select name="driver_id" id="driver_id" required>
+                                            <option selected disabled>Pilih Driver</option>
+                                            @foreach ($drivers as $driver)
+                                                @if ($driver->user->transporter_id == auth()->user()->id)
+                                                    <option value="{{ $driver->user_id }}">{{ $driver->user->name }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="armada_id" class="form-label">Pilih Armada</label>
+                                        <select name="armada_id" id="armada_id" required>
+                                            <option selected disabled>Pilih Armada</option>
+                                            @foreach ($armadas as $armada)
+                                                <option value="{{ $armada->id }}">{{ $armada->name }} | Max Load:
+                                                    {{ $armada->max_load }}KG</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="keterangan" class="form-label">Keterangan</label>
+                                        <textarea class="form-control" name="keterangan" id="keterangan" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" id="submitAccept">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="reject" tabindex="-1" aria-labelledby="rejectLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="rejectLabel">Reject Customer Order</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form action="{{ route('order-request.reject', $order->order_number) }}" method="POST"
+                                id="modalForm">
+                                <div class="modal-body">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="keterangan" class="form-label">Keterangan</label>
+                                        <textarea class="form-control" name="keterangan" id="keterangan" rows="3" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" id="submitAccept">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -241,15 +301,11 @@
                     });
             });
 
-
-
             // format total
             document.getElementById('total').textContent = total.toLocaleString('id-ID', {
                 style: 'currency',
                 currency: 'IDR'
             });
-
-
         });
     </script>
     <!-- Plugins and scripts required by this view-->
@@ -259,4 +315,24 @@
     <script src="{{ asset('assets/marketing/js/main.js') }}"></script>
     <script src="{{ asset('assets/marketing/js/config.js') }}"></script>
     <script src="{{ asset('assets/marketing/js/color-modes.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#driver_id').select2({
+                dropdownParent: $('#exampleModal'),
+                width: '100%',
+                allowClear: true,
+                placeholder: 'Pilih Driver'
+            });
+
+            $('#armada_id').select2({
+                dropdownParent: $('#exampleModal'),
+                width: '100%',
+                allowClear: true,
+                placeholder: 'Pilih Armada'
+            });
+
+        });
+    </script>
 @endsection

@@ -40,5 +40,10 @@ class Order extends Model
     {
         return $this->hasMany(order_detail::class);
     }
+
+    public function armada()
+    {
+        return $this->belongsTo(Armada::class);
+    }
  
 }

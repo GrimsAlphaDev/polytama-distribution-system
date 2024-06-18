@@ -43,6 +43,7 @@ class ArmadaController extends Controller
             'condition' => 'required',
             'license_plate' => 'required',
             'max_weight' => 'required',
+            'status' => 'required',
         ],[
             'name.required' => 'Nama armada harus diisi',
             'type.required' => 'Tipe armada harus diisi',
@@ -51,6 +52,7 @@ class ArmadaController extends Controller
             'condition.required' => 'Kondisi armada harus diisi',
             'license_plate.required' => 'Plat nomor armada harus diisi',
             'max_weight.required' => 'Batas muatan armada harus diisi',
+            'status.required' => 'Status armada harus diisi',
         ]);
 
         // store data to database
@@ -63,6 +65,7 @@ class ArmadaController extends Controller
         $armada->license_plate = $request->license_plate;
         $armada->max_load = $request->max_weight;
         $armada->user_id = Auth::user()->id;
+        $armada->status = $request->status;
         $armada->save();
 
         return redirect()->route('armada')->with('success', 'Data armada berhasil ditambahkan');
@@ -101,6 +104,7 @@ class ArmadaController extends Controller
             'condition' => 'required',
             'license_plate' => 'required',
             'max_weight' => 'required',
+            'status' => 'required',
         ],[
             'name.required' => 'Nama armada harus diisi',
             'type.required' => 'Tipe armada harus diisi',
@@ -109,6 +113,7 @@ class ArmadaController extends Controller
             'condition.required' => 'Kondisi armada harus diisi',
             'license_plate.required' => 'Plat nomor armada harus diisi',
             'max_weight.required' => 'Batas muatan armada harus diisi',
+            'status.required' => 'Status armada harus diisi',
         ]);
 
         $armada = Armada::find($id);
@@ -119,6 +124,7 @@ class ArmadaController extends Controller
         $armada->condition = $request->condition;
         $armada->license_plate = $request->license_plate;
         $armada->max_load = $request->max_weight;
+        $armada->status = $request->status;
         $armada->update();
 
         return redirect()->route('armada')->with('success', 'Data armada berhasil diubah');
