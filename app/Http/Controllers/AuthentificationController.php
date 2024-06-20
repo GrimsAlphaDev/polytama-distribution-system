@@ -36,7 +36,7 @@ class AuthentificationController extends Controller
                 return redirect('/transporter')->with('success', 'Berhasil Login')->with('description', 'Selamat Datang di Dashboard Transporter');
                 break;
             case 'driver':
-                dd('driver');
+                return redirect('/driver')->with('success', 'Berhasil Login')->with('description', 'Selamat Datang di Dashboard Driver');
                 break;
             case 'logistik':
                 dd('logistik');

@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthentificationController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderRequestController;
+use App\Http\Controllers\ShipmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'guest'], function () {
@@ -72,7 +73,8 @@ Route::group([
     'middleware' => ['auth', 'driver']
 ], function () {
 
-    Route::get('/driver', function () {
-        return view('driver.dashboard.index');
-    })->name('driver');
+    Route::get('/driver', [ShipmentController::class, 'dashboard'])->name('driver');
+
+    Route::get('/driver/shipment', [ShipmentController::class, 'index'])->name('driver.shipment');
+    Route::post('/driver/updateStatusDriver/{id}e', [ShipmentController::class , 'updateStatusDriver'])->name('driver.updateStatusDriver');
 });

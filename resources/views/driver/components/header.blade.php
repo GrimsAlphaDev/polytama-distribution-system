@@ -8,9 +8,13 @@
         <ul class="header-nav d-none d-lg-flex">
             <li class="nav-item"><a
                     class="nav-link
-                {{ request()->is('transporter') || request()->is('transporter') ? 'active' : '' }}
+                {{ request()->is('driver') || request()->is('driver') ? 'active' : '' }}
                 "
-                    href="{{ route('transporter') }}">Dashboard</a></li>
+                    href="{{ route('driver') }}">Dashboard</a></li>
+            <li class="nav-item"><a
+                    class="nav-link
+                {{ request()->is('driver/shipment') || request()->is('driver/shipment/*') ? 'active' : '' }}"
+                    href="{{ route('driver.shipment') }}">Shipment</a></li>
 
 
         </ul>
@@ -102,12 +106,16 @@
     <div class="container-fluid px-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb my-0">
-                @if (request()->is('transporter') || request()->is('transporter/*'))
-                    <li class="breadcrumb-item">Transpolind</li>
+                @if (request()->is('driver') || request()->is('driver/*'))
+                    <li class="breadcrumb-item">Dripolind</li>
                     <li class="breadcrumb-item active"><span>Dashboard</span>
                     </li>
+                @elseif (request()->is('driver/shipment') || request()->is('driver/shipment/*'))
+                    <li class="breadcrumb-item">Dripolind</li>
+                    <li class="breadcrumb-item active"><span>Shipment</span>
+                    </li>
                 @else
-                    <li class="breadcrumb-item active"><span>Transpolind</span></li>
+                    <li class="breadcrumb-item active"><span>Dripolind</span></li>
                 @endif
             </ol>
         </nav>
