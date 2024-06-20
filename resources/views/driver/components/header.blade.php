@@ -12,13 +12,6 @@
                 "
                     href="{{ route('transporter') }}">Dashboard</a></li>
 
-            <li class="nav-item"><a class="nav-link
-                {{ request()->is('armada') ? 'active' : '' }}"
-                    href="{{ route('armada') }}">Armada</a></li>
-
-            <li class="nav-item"><a class="nav-link
-                {{ request()->is('order-request*') ? 'active' : '' }}"
-                    href="{{ route('order-request') }}">Order Request</a></li>
 
         </ul>
         <ul class="header-nav ms-auto"></ul>
@@ -113,20 +106,6 @@
                     <li class="breadcrumb-item">Transpolind</li>
                     <li class="breadcrumb-item active"><span>Dashboard</span>
                     </li>
-                @elseif (request()->is('armada'))
-                    <li class="breadcrumb-item">Transpolind</li>
-                    <li class="breadcrumb-item active"><span>Armada</span>
-                @elseif (request()->is('armada/create'))
-                    <li class="breadcrumb-item">Transpolind</li>
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('armada') }}">Armada</a></li>
-                    <li class="breadcrumb-item active"><span>Tambah Armada</span>
-                @elseif (request()->is('order-request'))
-                    <li class="breadcrumb-item">Transpolind</li>
-                    <li class="breadcrumb-item active"><span>Order Request</span>
-                @elseif (request()->is('order-request/*'))
-                    <li class="breadcrumb-item">Transpolind</li>
-                    <li class="breadcrumb-item"><a class="text-decoration-none" href="{{ route('order-request') }}">Order Request</a></li>
-                    <li class="breadcrumb-item active"><span>Detail Order Request</span>
                 @else
                     <li class="breadcrumb-item active"><span>Transpolind</span></li>
                 @endif

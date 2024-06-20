@@ -66,3 +66,13 @@ Route::group([
     Route::post('/order-request/accept/{id}', [OrderRequestController::class, 'accept'])->name('order-request.accept');
     Route::post('/order-request/reject/{id}', [OrderRequestController::class, 'reject'])->name('order-request.reject');
 });
+
+
+Route::group([
+    'middleware' => ['auth', 'driver']
+], function () {
+
+    Route::get('/driver', function () {
+        return view('driver.dashboard.index');
+    })->name('driver');
+});

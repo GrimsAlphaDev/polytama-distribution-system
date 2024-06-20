@@ -162,6 +162,7 @@
                                             </table>
                                         </div>
                                     </div>
+                                    
                                     {{-- create 3 button right aligned for back edit and delete --}}
                                     <div class="col-12">
                                         <div class="d-flex justify-content-end">
