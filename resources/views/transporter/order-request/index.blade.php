@@ -47,20 +47,17 @@
                                         <tbody>
                                             @foreach ($orderRequests as $or)
                                                 <tr
-                                                @if ($or->status == 'Menunggu Konfirmasi Transporter')
-                                                    class="table-warning"
-                                                @elseif ($or->status == 'Pesanan Ditolak oleh Transporter')
+                                                    @if ($or->shipment_status_id == 1) class="table-warning"
+                                                @elseif ($or->shipment_status_id == 2)
                                                     class="table-danger"
-                                                @elseif ($or->status == 'Driver dan Armada Telah Dipilih')
-                                                    class="table-info"
-                                                @endif
-                                                > 
+                                                @elseif ($or->shipment_status_id == 3)
+                                                    class="table-info" @endif>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $or->order_number }}</td>
                                                     <td>{{ $or->customer->name }}</td>
                                                     <td>{{ $or->driver->name ?? 'Driver Belum Ditunjuk' }}</td>
                                                     <td>{{ $or->keterangan }}</td>
-                                                    <td>{{ $or->status }}</td>
+                                                    <td>{{ $or->shipmentStatus->name }}</td>
                                                     <td>
                                                         <a href="{{ route('order-request.show', $or->id) }}"
                                                             class="btn btn-primary btn-sm">Detail</a>
@@ -91,7 +88,6 @@
                 header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
             }
         });
-
     </script>
     <!-- Plugins and scripts required by this view-->
     <script src="{{ asset('assets/marketing/package/chart.js/dist/chart.umd.js') }}"></script>

@@ -87,7 +87,7 @@ class OrderController extends Controller
         $order->transporter_id = $request->transporter;
         $order->driver_id = null;
         $order->keterangan = $keterangan;
-        $order->status = 'Menunggu Konfirmasi Transporter';
+        $order->shipment_status_id = 1;
         $order->save();
 
         foreach ($request->product_id as $key => $value) {
@@ -193,7 +193,7 @@ class OrderController extends Controller
         $order->transporter_id = $request->transporter;
         $order->driver_id = null;
         $order->keterangan = $keterangan;
-        $order->status = 'Menunggu Konfirmasi Transporter';
+        $order->shipment_status_id = 1;
         $order->update();
 
         // delete order detail

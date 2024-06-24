@@ -14,7 +14,7 @@ class ArmadaController extends Controller
      */
     public function index()
     {
-        $armadas = Armada::orderBy('updated_at', 'desc')->get();
+        $armadas = Armada::where('user_id', auth()->user()->id)->orderBy('updated_at', 'desc')->get();
 
         return view('transporter.armada.index', compact('armadas'));
     }

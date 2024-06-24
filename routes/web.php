@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\ArmadaController;
-use App\Http\Controllers\AuthentificationController;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OrderRequestController;
-use App\Http\Controllers\ShipmentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ArmadaController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ShipmentController;
+use App\Http\Controllers\OrderRequestController;
+use App\Http\Controllers\AuthentificationController;
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', function () {

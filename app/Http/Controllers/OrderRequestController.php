@@ -46,16 +46,19 @@ class OrderRequestController extends Controller
     {
         $request->validate([
             'driver_id' => 'required',
-            'armada_id' => 'required'
+            'armada_id' => 'required',
+            'keterangan' => 'required'
         ],[
             'driver_id.required' => 'Dimohon untuk memilih driver terlebih dahulu',
-            'armada_id.required' => 'Dimohon untuk memilih armada terlebih dahulu'
+            'armada_id.required' => 'Dimohon untuk memilih armada terlebih dahulu',
+            'keterangan.required' => 'Dimohon untuk mengisi keterangan alasan penolakan'
         ]);
 
         $order = Order::where('order_number', $id)->first();
         $order->driver_id = $request->driver_id;
         $order->armada_id = $request->armada_id;
-        $order->status = "Driver dan Armada Telah Dipilih";
+        $order->shipment_status_id = 3;
+        $order->keterangan = $request->keterangan;
         $order->update();
 
         $avaibility = Availability::where('user_id', $request->driver_id)->where('created_at', '>=', now()->startOfDay())->where('created_at', '<=', now()->endOfDay())->first();
@@ -81,7 +84,7 @@ class OrderRequestController extends Controller
 
         $order = Order::where('order_number', $id)->first();
         $order->keterangan = $request->keterangan;
-        $order->status = "Pesanan Ditolak oleh Transporter";
+        $order->shipment_status_id = 2;
         $order->update();
 
         return redirect()->route('order-request')->with('success', 'Order request rejected successfully');

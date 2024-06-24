@@ -17,13 +17,13 @@
                 width: 300px;
             }
         }
+
         @media (min-width: 768px) {
             #myChart {
                 height: 400px;
                 width: 400px;
             }
         }
-
     </style>
 @endsection
 
@@ -32,13 +32,12 @@
 @endsection
 
 @section('content')
-    
     @include('components.notification')
 
     @include('marketing.components.sidebar')
 
     <div class="wrapper d-flex flex-column min-vh-100">
-        
+
         @include('marketing.components.header')
 
         <div class="body flex-grow-1">
@@ -67,16 +66,12 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($orders as $order)
-                                                <tr 
-                                                {{-- if status 'Menunggu Konfirmasi Transporter' edit row to yellow --}}
-                                                @if ($order->status == 'Menunggu Konfirmasi Transporter')
-                                                    class="table-warning"
-                                                @elseif ($order->status == 'Pesanan Ditolak oleh Transporter')
+                                                <tr {{-- if status 'Menunggu Konfirmasi Transporter' edit row to yellow --}}
+                                                    @if ($order->shipment_status_id == 1) class="table-warning"
+                                                @elseif ($order->shipment_status_id == 2)
                                                     class="table-danger"
-                                                @elseif ($order->status == 'Driver dan Armada Telah Dipilih')
-                                                    class="table-info"
-                                                @endif
-                                                >
+                                                @elseif ($order->shipment_status_id == 3)
+                                                    class="table-info" @endif>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $order->order_number }}</td>
                                                     <td>{{ $order->customer->name }}</td>
@@ -84,12 +79,13 @@
                                                     {{-- if order->driver->name is null --}}
                                                     <td>{{ $order->driver->name ?? 'Driver Belum Ditunjuk' }}</td>
                                                     <td>{{ $order->keterangan }}</td>
-                                                    <td>{{ $order->status }}</td>
+                                                    <td>{{ $order->shipmentStatus->name }}</td>
                                                     <td>
                                                         <div class="d-inline-flex">
                                                             <a href="{{ route('order.edit', $order->id) }}"
                                                                 class="btn btn-success btn-sm me-1 text-white">Edit</a>
-                                                            <form action="{{ route('order.delete', $order->id) }}" method="post">
+                                                            <form action="{{ route('order.delete', $order->id) }}"
+                                                                method="post">
                                                                 @csrf
                                                                 @method('delete')
                                                                 <button type="submit"

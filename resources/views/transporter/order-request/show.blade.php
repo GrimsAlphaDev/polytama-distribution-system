@@ -167,7 +167,7 @@
                                     <div class="col-12">
                                         <div class="d-flex justify-content-end">
                                             <a href="{{ route('order-request') }}" class="btn btn-secondary">Kembali</a>
-                                            @if ($order->status == 'Menunggu Konfirmasi Transporter')
+                                            @if ($order->shipment_status_id == 1)
                                                 <button data-bs-toggle="modal" data-bs-target="#reject"
                                                     class="btn btn-danger text-white ms-2">Reject Customer Order</button>
                                                 <button data-bs-toggle="modal" data-bs-target="#exampleModal"
