@@ -106,7 +106,7 @@
     <div class="container-fluid px-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb my-0">
-                @if (request()->is('driver') || request()->is('driver/*'))
+                @if (request()->is('driver'))
                     <li class="breadcrumb-item">Dripolind</li>
                     <li class="breadcrumb-item active"><span>Dashboard</span>
                     </li>

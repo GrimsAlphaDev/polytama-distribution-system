@@ -10,13 +10,13 @@
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
         <li class="nav-item"><a
                 class="nav-link
-            {{ request()->is('driver') || request()->is('driver/*') ? 'active' : '' }}"
+            {{ request()->is('driver') ? 'active' : '' }}"
                 href="{{ route('driver') }}">
                 <i class="bi bi-house-door me-3"></i> Dashboard</a></li>
         <li class="nav-item"><a
                 class="nav-link
             {{ request()->is('driver/shipment') || request()->is('driver/shipment/*') ? 'active' : '' }}"
                 href="{{ route('driver.shipment') }}">
-                <i class="bi bi-truck me-3"></i> Shipment</a></li>
+                <i class="bi bi-truck me-3"></i> Active Shipment</a></li>
     </ul>
 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Availability;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class ShipmentController extends Controller
@@ -18,7 +19,11 @@ class ShipmentController extends Controller
 
     public function index()
     {
-        return view('shipment.dashboard.index', compact('driverAvail'));
+
+        $orders = Order::where('driver_id', auth()->user()->id)->get();
+        // dd($order);
+
+        return view('driver.shipment.index', compact('orders'));
     }
 
     public function updateStatusDriver($id, Request $request)

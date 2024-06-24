@@ -45,5 +45,9 @@ class Order extends Model
     {
         return $this->belongsTo(Armada::class);
     }
- 
+
+    public function shipmentStatus()
+    {
+        return $this->belongsTo(ShipmentStatus::class);
+    }
 }

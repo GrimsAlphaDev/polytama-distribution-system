@@ -32,7 +32,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <h5 class="card-title">Status Driver Pada Hari Ini <span class="badge {{ ($driverAvail->status == 1 ? 'bg-success' : 'bg-danger') }}">{{ ($driverAvail->status == 1 ? 'Avaible' : 'Not Avaible') }}</span></h5>
+                                        <h5 class="card-title">Status Driver Pada Hari Ini @if($driverAvail) <span class="badge {{ ($driverAvail->status == 1 ? 'bg-success' : 'bg-danger') }}">{{ ($driverAvail->status == 1 ? 'Avaible' : 'Not Avaible') }}</span> @else <span class="badge bg-danger">Not Avaible </span> @endif</h5>
                                         <div class="d-flex align-items-center">
                                             <div>
                                                 <p class="card-text">{{ date('d F Y') }}</p>
