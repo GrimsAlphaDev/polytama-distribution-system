@@ -32,7 +32,15 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <h5 class="card-title">Status Driver Pada Hari Ini @if($driverAvail) <span class="badge {{ ($driverAvail->status == 1 ? 'bg-success' : 'bg-danger') }}">{{ ($driverAvail->status == 1 ? 'Avaible' : 'Not Avaible') }}</span> @else <span class="badge bg-danger">Not Avaible </span> @endif</h5>
+                                        <h5 class="card-title">Status Driver Pada Hari Ini
+                                            @if ($status == 0)
+                                                <span class="badge bg-danger">Not Avaible</span>
+                                            @elseif ($status == 1)
+                                                <span class="badge bg-success">Avaible</span>
+                                            @elseif ($status == 2)
+                                                <span class="badge bg-info">On Duty</span>
+                                            @endif
+                                        </h5>
                                         <div class="d-flex align-items-center">
                                             <div>
                                                 <p class="card-text">{{ date('d F Y') }}</p>
@@ -40,8 +48,10 @@
                                         </div>
                                     </div>
                                     <div>
+                                    @if (!$status == 2)
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#exampleModal">Update Status</button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -62,11 +72,12 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status Driver</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('driver.updateStatusDriver', auth()->user()->id ) }}" method="POST">
+                <form action="{{ route('driver.updateStatusDriver', auth()->user()->id) }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="status" class="form-label d-block">Update Status Pada Hari Ini, {{ date('d F Y') }}</label>
+                            <label for="status" class="form-label d-block">Update Status Pada Hari Ini,
+                                {{ date('d F Y') }}</label>
                             <div class="form-check form-check-inline d-block mb-2 mt-3">
                                 <input class="form-check-input" type="radio" name="status" id="status1" value="1">
                                 <label class="form-check-label" for="status1">Available</label>

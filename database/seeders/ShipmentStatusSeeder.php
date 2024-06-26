@@ -14,15 +14,17 @@ class ShipmentStatusSeeder extends Seeder
     public function run(): void
     {
         $shipmentStatus = [
-            ['name' => 'Menunggu Konfirmasi Transporter'],
+            ['name' =>'Menunggu Konfirmasi Transporter'],
             ['name' =>'Pesanan Ditolak oleh Transporter'],
             ['name' =>'Driver dan Armada Telah Dipilih'],
-            ['name' =>'Truck Menuju Gudang'],
+            ['name' =>'Driver Menuju Gudang'],
             ['name' =>'Truck Tiba di Gudang'],
-            ['name' =>'Pesanan Di Proses Oleh Tim Logistik'],
+            ['name' =>'Logistik Dilakukan Penimbangan Pertama'],
+            ['name' =>'Logistik Melakukan Loading Barang'],
+            ['name' =>'Logistik Melakukan Timbangan Kedua'],
             ['name' =>'Surat Jalan Telah Diterbitkan'],
             ['name' =>'Driver Mengirim Pesanan'],
-            ['name' =>'Pesanan Telah Diterima Customer'],
+            ['name' =>'Pesanan Telah Selesai dan Produk Berhasil Diterima Customer'],
         ];
 
         foreach ($shipmentStatus as $status) {

@@ -71,7 +71,9 @@
                                                 @elseif ($order->shipment_status_id == 2)
                                                     class="table-danger"
                                                 @elseif ($order->shipment_status_id == 3)
-                                                    class="table-info" @endif>
+                                                    class="table-info" 
+                                                @elseif ($order->shipment_status_id > 3)
+                                            class="table-primary" @endif>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $order->order_number }}</td>
                                                     <td>{{ $order->customer->name }}</td>

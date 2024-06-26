@@ -102,7 +102,7 @@
                                         <div class="mb-3">
                                             <label for="order_status" class="fw-bold form-label d-block">Status Pesanan
                                                 : </label>
-                                            <label for="order_status" class="form-label">{{ $order->status }}</label>
+                                            <label for="order_status" class="form-label">{{ $order->shipmentStatus->name }}</label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="order_date" class="fw-bold form-label d-block">Keterangan Pesanan :

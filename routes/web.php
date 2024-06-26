@@ -76,5 +76,7 @@ Route::group([
     Route::get('/driver', [ShipmentController::class, 'dashboard'])->name('driver');
 
     Route::get('/driver/shipment', [ShipmentController::class, 'index'])->name('driver.shipment');
-    Route::post('/driver/updateStatusDriver/{id}e', [ShipmentController::class , 'updateStatusDriver'])->name('driver.updateStatusDriver');
+    Route::post('/driver/updateStatusDriver/{id}', [ShipmentController::class , 'updateStatusDriver'])->name('driver.updateStatusDriver');
+    Route::post('/updateStatusOrder/{id}', [ShipmentController::class, 'updateStatus'])->name('updateStatusOrder');
+
 });
