@@ -48,10 +48,10 @@
                                         </div>
                                     </div>
                                     <div>
-                                    @if (!$status == 2)
+                                    @if ($status != 2)
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#exampleModal">Update Status</button>
-                                        @endif
+                                    @endif
                                     </div>
                                 </div>
                             </div>

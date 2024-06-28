@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Availability;
 use App\Models\Order;
+use App\Models\OrderHistory;
 use Illuminate\Http\Request;
 
 class ShipmentController extends Controller
@@ -43,13 +44,15 @@ class ShipmentController extends Controller
             foreach ($order->orderDetails as $orderDetail) {
                 $totalWeight += $orderDetail->product->weight * $orderDetail->quantity;
             }
+            
         } else {
             $total = 0;
             $totalWeight = 0;
         } 
-        
 
-        return view('driver.shipment.index', compact('order', 'totalWeight', 'total'));
+        $histories = OrderHistory::where('order_id', $order->id)->orderBy('created_at', 'asc')->where('shipment_status_id', '>', 2)->get();
+
+        return view('driver.shipment.index', compact('order', 'totalWeight', 'total', 'histories'));
     }
 
     public function updateStatusDriver($id, Request $request)
@@ -96,6 +99,21 @@ class ShipmentController extends Controller
         $order->keterangan = $keterangan;
         $order->update();
 
+        // date jakarta time
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Y-m-d H:i:s');
+
+        // update history
+        $history = new OrderHistory();
+        $history->order_id = $order->id;
+        $history->shipment_status_id = $request->shipment_status_id;
+        $history->user_id = auth()->user()->id;
+        $history->note = $keterangan;
+        $history->created_at = $date;
+        $history->updated_at = $date;
+        $history->save();
+
+        
         return redirect()->route('driver.shipment')->with('success', 'Status order berhasil diubah');
 
     }

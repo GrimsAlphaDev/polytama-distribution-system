@@ -19,7 +19,7 @@ class ShipmentStatusSeeder extends Seeder
             ['name' =>'Driver dan Armada Telah Dipilih'],
             ['name' =>'Driver Menuju Gudang'],
             ['name' =>'Truck Tiba di Gudang'],
-            ['name' =>'Logistik Dilakukan Penimbangan Pertama'],
+            ['name' =>'Logistik Melakukan Penimbangan Pertama'],
             ['name' =>'Logistik Melakukan Loading Barang'],
             ['name' =>'Logistik Melakukan Timbangan Kedua'],
             ['name' =>'Surat Jalan Telah Diterbitkan'],

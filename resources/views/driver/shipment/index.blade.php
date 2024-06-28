@@ -201,90 +201,17 @@
                                         <section class="py-2">
                                             <ul class="timeline">
 
-                                                @if ($order->shipment_status_id > 2)
-                                                    <li class="timeline-item mb-5">
-                                                        <h5 class="fw-bold">{{ $order->shipmentStatus->name }}</h5>
-                                                        <p class="text-muted">
-                                                            Driver {{ $order->driver->name }} dengan armada
-                                                            {{ $order->armada->name }} telah dipilih untuk mengirim
-                                                            pesanan dengan nomor pesanan {{ $order->order_number }}
-                                                        </p>
-                                                    </li>
-                                                @endif
-
-                                                @if ($order->shipment_status_id > 3)
-                                                    <li class="timeline-item mb-5">
-                                                        <h5 class="fw-bold">{{ $order->shipmentStatus->name }}</h5>
-                                                        <p class="text-muted">
-                                                            Driver {{ $order->driver->name }} dengan armada
-                                                            {{ $order->armada->name }} sedang dalam perjalanan menuju
-                                                            warehouse
-                                                        </p>
-                                                    </li>
-                                                @endif
-
-                                                @if ($order->shipment_status_id == 5)
-                                                    <li class="timeline-item mb-5">
-                                                        <h5 class="fw-bold">{{ $order->shipmentStatus->name }}</h5>
-                                                        <p class="text-muted">
-                                                            Truck {{ $order->armada->name }} telah tiba di warehouse
-                                                        </p>
-                                                    </li>
-                                                @endif
-
-                                                @if ($order->shipment_status_id == 6)
-                                                    <li class="timeline-item mb-5">
-                                                        <h5 class="fw-bold">{{ $order->shipmentStatus->name }}</h5>
-                                                        <p class="text-muted">
-                                                            Truck {{ $order->armada->name }} telah tiba di warehouse dan
-                                                            sedang dilakukan penimbangan pertama
-                                                        </p>
-                                                    </li>
-                                                @endif
-
-                                                @if ($order->shipment_status_id == 7)
-                                                    <li class="timeline-item mb-5">
-                                                        <h5 class="fw-bold">{{ $order->shipmentStatus->name }}</h5>
-                                                        <p class="text-muted">
-                                                            Truck {{ $order->armada->name }} telah tiba di warehouse dan
-                                                            sedang dilakukan loading barang oleh divisi logistik
-                                                        </p>
-                                                    </li>
-                                                @endif
-
-                                                @if ($order->shipment_status_id == 8)
-                                                    <li class="timeline-item mb-5">
-                                                        <h5 class="fw-bold">{{ $order->shipmentStatus->name }}</h5>
-                                                        <p class="text-muted">
-                                                            Truck {{ $order->armada->name }} telah tiba di warehouse dan
-                                                            sedang dilakukan penimbangan kedua
-                                                        </p>
-                                                    </li>
-                                                @endif
-
-                                                @if ($order->shipment_status_id == 9)
-                                                    <li class="timeline-item mb-5">
-                                                        <h5 class="fw-bold">{{ $order->shipmentStatus->name }}</h5>
-                                                        <p class="text-muted">
-                                                            Pesanan dengan nomor pesanan {{ $order->order_number }} telah
-                                                            diterbitkan surat jalan
-                                                        </p>
-                                                    </li>
-                                                @endif
-
-                                                @if ($order->shipment_status_id == 10)
-                                                    <li class="timeline-item mb-5">
-                                                        <h5 class="fw-bold">{{ $order->shipmentStatus->name }}</h5>
-                                                        <p class="text-muted">
-                                                            Driver {{ $order->driver->name }} dengan armada
-                                                            {{ $order->armada->name }} sedang mengirim pesanan dengan nomor
-                                                            pesanan {{ $order->order_number }} ke
-                                                            {{ $order->customer->name }}
-                                                            di
-                                                            {{ $order->customer->address }}
-                                                        </p>
-                                                    </li>
-                                                @endif
+                                                @foreach ($histories as $hs)
+                                                <li class="timeline-item mb-5">
+                                                    <h5 class="fw-bold">{{ $hs->shipmentStatus->name }}</h5>
+                                                    <p>
+                                                        {{ $hs->created_at->format('d F Y H:i:s') }}
+                                                    </p>
+                                                    <p class="text-muted">
+                                                        Note : {{ $hs->note }}
+                                                    </p>
+                                                </li>
+                                                @endforeach
                                             </ul>
                                         </section>
                                         <!-- Section: Timeline -->

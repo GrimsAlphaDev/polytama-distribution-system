@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Armada;
 use App\Models\Availability;
 use App\Models\Order;
+use App\Models\OrderHistory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -73,6 +74,20 @@ class OrderRequestController extends Controller
         $armada->status = 'On Shipping';
         $armada->update();
 
+        // get date jakarta
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Y-m-d H:i:s');
+
+        // update history
+        $orderHistory = new OrderHistory();
+        $orderHistory->order_id = $order->id;
+        $orderHistory->shipment_status_id = 3;
+        $orderHistory->user_id = Auth()->user()->id;
+        $orderHistory->note = $keterangan;
+        $orderHistory->created_at = $date;
+        $orderHistory->updated_at = $date;
+        $orderHistory->save();
+
         return redirect()->route('order-request')->with('success', 'Order request accepted successfully');
 
     }
@@ -90,6 +105,20 @@ class OrderRequestController extends Controller
         $order->keterangan = $request->keterangan;
         $order->shipment_status_id = 2;
         $order->update();
+
+        // get date jakarta
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Y-m-d H:i:s');
+
+        // update history
+        $orderHistory = new OrderHistory();
+        $orderHistory->order_id = $order->id;
+        $orderHistory->shipment_status_id = 2;
+        $orderHistory->user_id = Auth()->user()->id;
+        $orderHistory->note = $request->keterangan;
+        $orderHistory->created_at = $date;
+        $orderHistory->updated_at = $date;
+        $orderHistory->save();
 
         return redirect()->route('order-request')->with('success', 'Order request rejected successfully');
     }

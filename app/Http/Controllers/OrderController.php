@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Customer;
+use App\Models\OrderHistory;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -108,7 +109,21 @@ class OrderController extends Controller
             $product->save();
         }
 
+        // get exact date and hour based on jakarta
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Y-m-d H:i:s');
+
         // add to history
+        OrderHistory::create([
+            'order_id' => $order->id,
+            'shipment_status_id' => 1,
+            'user_id' => auth()->user()->id,
+            'note' => 'Customer Order Created',
+            'created_at' => $date,
+            'updated_at' => $date,
+        ]);
+
+
 
         // mysql commit transaction
         DB::commit();
@@ -219,6 +234,20 @@ class OrderController extends Controller
             $product->save();
         }
 
+        // insert to history
+        date_default_timezone_set('Asia/Jakarta');
+        $date = date('Y-m-d H:i:s');
+        
+        OrderHistory::create([
+            'order_id' => $order->id,
+            'shipment_status_id' => 1,
+            'user_id' => auth()->user()->id,
+            'note' => $keterangan . ' - Order Updated',
+            'created_at' => $date,
+            'updated_at' => $date,
+        ]);
+
+
         // mysql commit transaction
         DB::commit();
 
@@ -242,6 +271,9 @@ class OrderController extends Controller
 
         // delete order
         $order->delete();
+
+        // delete order history
+        OrderHistory::where('order_id', $id)->delete();
 
         // mysql commit transaction
         DB::commit();

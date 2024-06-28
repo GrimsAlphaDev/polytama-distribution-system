@@ -38,8 +38,9 @@ class AuthentificationController extends Controller
             case 'driver':
                 return redirect('/driver')->with('success', 'Berhasil Login')->with('description', 'Selamat Datang di Dashboard Driver');
                 break;
+                
             case 'logistik':
-                dd('logistik');
+                return redirect('/logistik')->with('success', 'Berhasil Login')->with('description', 'Selamat Datang di Dashboard Logistik');
                 break;
 
             default:
@@ -54,6 +55,14 @@ class AuthentificationController extends Controller
 
     public function logout(Request $request)
     {
+
+        // check if user is not logged in
+        if (!Auth::check()) {
+            return redirect('/login')->withErrors([
+                'Error' => 'Anda belum login'
+            ]);
+        }
+
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

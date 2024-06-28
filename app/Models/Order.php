@@ -50,4 +50,9 @@ class Order extends Model
     {
         return $this->belongsTo(ShipmentStatus::class);
     }
+
+    public function orderHistories()
+    {
+        return $this->hasMany(OrderHistory::class);
+    }
 }

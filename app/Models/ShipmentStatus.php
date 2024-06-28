@@ -18,5 +18,9 @@ class ShipmentStatus extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function orderHistories()
+    {
+        return $this->hasMany(OrderHistory::class);
+    }
     
 }
