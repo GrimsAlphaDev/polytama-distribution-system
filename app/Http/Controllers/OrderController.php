@@ -108,6 +108,8 @@ class OrderController extends Controller
             $product->save();
         }
 
+        // add to history
+
         // mysql commit transaction
         DB::commit();
 

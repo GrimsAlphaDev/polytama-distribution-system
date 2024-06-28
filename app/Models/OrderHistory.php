@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class OrderHistory extends Model
 {
     use HasFactory;
+
+
 }
