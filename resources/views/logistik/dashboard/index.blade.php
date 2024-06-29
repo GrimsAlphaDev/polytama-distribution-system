@@ -11,17 +11,16 @@
 @endsection
 
 @section('title')
-    Transporter Polytama Indramayu
+    LLPI
 @endsection
 
 @section('content')
-    
     @include('components.notification')
 
     @include('logistik.components.sidebar')
 
     <div class="wrapper d-flex flex-column min-vh-100">
-    
+
         @include('logistik.components.header')
 
         <div class="body flex-grow-1">
@@ -47,14 +46,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($orders as $or)
-                                                <tr
-                                                    @if ($or->shipment_status_id == 1) class="table-warning"
-                                                @elseif ($or->shipment_status_id == 2)
-                                                    class="table-danger"
-                                                @elseif ($or->shipment_status_id == 3)
-                                                    class="table-info" 
-                                                @elseif ($or->shipment_status_id > 3)
-                                            class="table-primary" @endif>
+                                                <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $or->order_number }}</td>
                                                     <td>{{ $or->customer->name }}</td>
@@ -62,8 +54,18 @@
                                                     <td>{{ $or->keterangan }}</td>
                                                     <td>{{ $or->shipmentStatus->name }}</td>
                                                     <td>
-                                                        <a href="{{ route('order-request.show', $or->id) }}"
-                                                            class="btn btn-primary btn-sm">Detail</a>
+                                                        <div class="d-inline-flex">
+                                                            <a href="{{ route('logistik.show', $or->id) }}"
+                                                                class="btn btn-primary btn-sm me-2">Detail</a>
+                                                            <form action="{{ route('logistik.update', $or->id) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                <input type="hidden" name="status" value="6">
+                                                                <button type="submit"
+                                                                    class="btn btn-success btn-sm text-white"
+                                                                    onclick="return confirm('Update Truck {{ $or->armada->name }} Ketahap Penimbangan Pertama ?')">Update </button>
+                                                            </form>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -85,12 +87,12 @@
     <script src="{{ asset('assets/marketing/package/coreui/dist/js/coreui.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/marketing/package/simplebar/dist/simplebar.min.js') }}"></script>
     <script>
-    const header = document.querySelector('header.header');
-    document.addEventListener('scroll', () => {
-    if (header) {
-        header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
-    }
-    }); 
+        const header = document.querySelector('header.header');
+        document.addEventListener('scroll', () => {
+            if (header) {
+                header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
+            }
+        });
     </script>
     <!-- Plugins and scripts required by this view-->
     <script src="{{ asset('assets/marketing/package/chart.js/dist/chart.umd.js') }}"></script>

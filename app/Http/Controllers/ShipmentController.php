@@ -76,7 +76,7 @@ class ShipmentController extends Controller
             $create->save();
         }
 
-        return redirect()->route('driver')->with('success', 'Status driver berhasil diubah');
+        return redirect()->route('driver')->with('success', 'Sukses')->with('description', 'Status driver berhasil diubah');
     }
 
     public function updateStatus($id, Request $request){
@@ -114,7 +114,7 @@ class ShipmentController extends Controller
         $history->save();
 
         
-        return redirect()->route('driver.shipment')->with('success', 'Status order berhasil diubah');
+        return redirect()->route('driver.shipment')->with('success', 'Sukses')->with('description', 'Status driver berhasil diubah');
 
     }
 }

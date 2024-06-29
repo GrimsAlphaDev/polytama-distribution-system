@@ -86,6 +86,11 @@ Route::group([
     'middleware' => ['auth', 'logistik']
 ], function () {
     Route::get('/logistik', [LogistikController::class, 'index'])->name('logistik');
+    Route::get('/logistik/show/{id}', [LogistikController::class, 'show'])->name('logistik.show');
+    Route::post('/logistik/updateTruck/{id}', [LogistikController::class, 'update'])->name('logistik.update');
+    Route::get('/logistik/firstWeighning', [LogistikController::class, 'firstWeigh'])->name('logistik.firstW');
+    Route::post('/logistik/firstWeigning/{id}', [LogistikController::class, 'insertFirstWeigh'])->name('logistik.insert.firstW');
+    Route::put('/logistik/firstWeigning/{id}', [LogistikController::class, 'updateFirstWeigh'])->name('logistik.update.firstW');
 });
 
 Route::get('/logout', [AuthentificationController::class, 'logout'])->name('logout');

@@ -55,4 +55,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderHistory::class);
     }
+
+    public function suratJalan()
+    {
+        return $this->belongsTo(SuratJalan::class);
+    }
 }

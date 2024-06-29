@@ -13,6 +13,11 @@
             {{ request()->is('logistik') ? 'active' : '' }}"
                 href="{{ route('logistik') }}">
                 <i class="bi bi-house-door me-3"></i> Dashboard</a></li>
+        <li class="nav-item"><a
+                class="nav-link
+            {{ request()->is('logistik') ? 'active' : '' }}"
+                href="{{ route('logistik.firstW') }}">
+                <i class="bi bi-house-door me-3"></i> Penimbangan Pertama</a></li>
         
     </ul>
 </div>

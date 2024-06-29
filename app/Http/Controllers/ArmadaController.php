@@ -68,7 +68,7 @@ class ArmadaController extends Controller
         $armada->status = $request->status;
         $armada->save();
 
-        return redirect()->route('armada')->with('success', 'Data armada berhasil ditambahkan');
+        return redirect()->route('armada')->with('success', 'Berhasil')->with('description', 'Data armada berhasil ditambahkan');
 
     }
 
@@ -127,7 +127,7 @@ class ArmadaController extends Controller
         $armada->status = $request->status;
         $armada->update();
 
-        return redirect()->route('armada')->with('success', 'Data armada berhasil diubah');
+        return redirect()->route('armada')->with('success', 'Berhasil')->with('description', 'Data armada berhasil diubah');
 
     }
 
@@ -140,6 +140,6 @@ class ArmadaController extends Controller
 
         $armada->delete();
 
-        return redirect()->route('armada')->with('success', 'Data armada berhasil dihapus');
+        return redirect()->route('armada')->with('success', 'Berhasil')->with('description', 'Data armada berhasil dihapus');
     }
 }

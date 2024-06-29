@@ -128,7 +128,7 @@ class OrderController extends Controller
         // mysql commit transaction
         DB::commit();
 
-        return redirect()->route('order')->with('success', 'Order Berhasil Dibuat');
+        return redirect()->route('order')->with('success', 'Berhasil')->with('description', 'Order Berhasil Dibuat');
     }
 
     /**
@@ -251,7 +251,7 @@ class OrderController extends Controller
         // mysql commit transaction
         DB::commit();
 
-        return redirect()->route('order')->with('success', 'Order Berhasil Diubah');
+        return redirect()->route('order')->with('success', 'Berhasil')->with('description', 'Order Berhasil Diubah');
 
 
     }
@@ -278,7 +278,7 @@ class OrderController extends Controller
         // mysql commit transaction
         DB::commit();
 
-        return redirect()->route('order')->with('success', 'Order Berhasil Dihapus');
+        return redirect()->route('order')->with('success', 'Berhasil')->with('description', 'Order Berhasil Dihapus');
     }
 
     public function convertCurrencyToInteger($currencyString)

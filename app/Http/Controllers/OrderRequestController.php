@@ -88,7 +88,7 @@ class OrderRequestController extends Controller
         $orderHistory->updated_at = $date;
         $orderHistory->save();
 
-        return redirect()->route('order-request')->with('success', 'Order request accepted successfully');
+        return redirect()->route('order-request')->with('success', 'Sukses')->with('description', 'Order request accepted successfully');
 
     }
 
@@ -120,7 +120,7 @@ class OrderRequestController extends Controller
         $orderHistory->updated_at = $date;
         $orderHistory->save();
 
-        return redirect()->route('order-request')->with('success', 'Order request rejected successfully');
+        return redirect()->route('order-request')->with('success', 'Sukses')->with('description', 'Order request rejected successfully');
     }
 
 }
