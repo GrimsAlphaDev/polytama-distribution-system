@@ -41,6 +41,7 @@
                                                 <th>Driver Assigned</th>
                                                 <th>Keterangan</th>
                                                 <th>Berat Timbangan Pertama</th>
+                                                <th>Berat Kedua</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -54,26 +55,27 @@
                                                     <td>{{ $or->driver->name ?? 'Driver Belum Ditunjuk' }}</td>
                                                     <td>{{ $or->keterangan }}</td>
                                                     <td>
-                                                        @if (isset($or->surat_jalan->empty_load_weight))
-                                                            {{ $or->surat_jalan->empty_load_weight }} KG
-                                                        @else
-                                                            Data Timbangan Pertama Belum Tersedia
-                                                        @endif
+                                                        {{ $or->surat_jalan->empty_load_weight ?? 'Data Timbangan Pertama Belum Tersedia' }}
+                                                        KG
+                                                    </td>
+                                                    <td>
+                                                        {{ $or->surat_jalan->loaded_weight ?? 'Data Timbangan kedua Belum Tersedia' }}
+                                                        KG
                                                     </td>
                                                     <td>{{ $or->shipmentStatus->name }}</td>
                                                     <td>
                                                         <div class="d-inline-flex">
                                                             <a href="{{ route('logistik.show', $or->id) }}"
                                                                 class="btn btn-primary btn-sm me-2">Detail</a>
-                                                            @if (!isset($or->surat_jalan->empty_load_weight))
+                                                            @if ($or->surat_jalan->loaded_weight == null)
                                                                 <button data-bs-toggle="modal"
                                                                     data-bs-target="#exampleModal{{ $or->id }}"
                                                                     class="btn btn-sm btn-success text-white ">Tambah
-                                                                    Timbangan</button>
+                                                                    Timbangan Kedua</button>
                                                             @else
                                                                 <button data-bs-toggle="modal"
                                                                     data-bs-target="#updateModal{{ $or->id }}"
-                                                                    class="btn btn-sm btn-info text-white ">Update
+                                                                    class="btn btn-sm btn-info text-white me-2">Update
                                                                     Timbangan</button>
                                                             @endif
                                                         </div>
@@ -87,20 +89,18 @@
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah
-                                                                    Timbangan Pertama
-                                                                </h1>
+                                                                    Timbangan Kedua</h1>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('logistik.insert.firstW', $or->id) }}"
+                                                            <form action="{{ route('logistik.insert.secondW', $or->id) }}"
                                                                 method="POST" id="modalForm">
                                                                 <div class="modal-body">
                                                                     @csrf
 
                                                                     <div class="mb-3">
                                                                         <label for="nomor_pesanan"
-                                                                            class="fw-bold form-label d-block">Nomor
-                                                                            Pesanan
+                                                                            class="fw-bold form-label d-block">Nomor Pesanan
                                                                             :
                                                                         </label>
                                                                         <label for="nomor_pesanan"
@@ -117,8 +117,7 @@
 
                                                                     <div class="mb-3">
                                                                         <label for="kapasitas"
-                                                                            class="fw-bold form-label d-block">Kapasitas
-                                                                            Max
+                                                                            class="fw-bold form-label d-block">Kapasitas Max
                                                                             :
                                                                         </label>
                                                                         <label for="kapasitas"
@@ -127,21 +126,21 @@
 
                                                                     <div class="mb-3">
                                                                         <label for="nopol"
-                                                                            class="fw-bold form-label d-block">Nomor
-                                                                            Polisi
+                                                                            class="fw-bold form-label d-block">Nomor Polisi
                                                                             :
                                                                         </label>
                                                                         <label for="nopol"
                                                                             class="form-label">{{ $or->armada->license_plate }}</label>
                                                                     </div>
 
+
                                                                     <div class="mb-3">
-                                                                        <label for="firstW"
+                                                                        <label for="secondW"
                                                                             class="fw-bold form-label d-block">Masukkan
-                                                                            Beban Truck Kosong (<span
+                                                                            Beban Truck Dengan Produk (<span
                                                                                 class="fw-bold">KG</span>)</label>
                                                                         <input type="text" class="form-control"
-                                                                            name="firstW" min="1"
+                                                                            name="secondW" min="1"
                                                                             oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
                                                                             required>
                                                                     </div>
@@ -165,23 +164,18 @@
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Update
-                                                                    Timbangan Pertama
-                                                                </h1>
+                                                                    Timbangan Kedua</h1>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
-                                                            <form action="{{ route('logistik.update.firstW', $or->id) }}"
+                                                            <form action="{{ route('logistik.insert.secondW', $or->id) }}"
                                                                 method="POST" id="modalForm">
                                                                 <div class="modal-body">
                                                                     @csrf
-                                                                    @method('PUT')
 
-                                                                    @foreach ($firstW as $fw)
-                                                                        @if ($fw->order_id == $or->id)
-                                                                            <input type="hidden" name="id_surjal"
-                                                                                value="{{ $fw->id }}">
-                                                                        @endif
-                                                                    @endforeach
+                                                                    <input type="hidden" name="id_surjal"
+                                                                        value="{{ $or->surat_jalan->id }}">
+
                                                                     <div class="mb-3">
                                                                         <label for="nomor_pesanan"
                                                                             class="fw-bold form-label d-block">Nomor
@@ -212,8 +206,7 @@
 
                                                                     <div class="mb-3">
                                                                         <label for="nopol"
-                                                                            class="fw-bold form-label d-block">Nomor
-                                                                            Polisi
+                                                                            class="fw-bold form-label d-block">Nomor Polisi
                                                                             :
                                                                         </label>
                                                                         <label for="nopol"
@@ -222,21 +215,15 @@
 
 
                                                                     <div class="mb-3">
-                                                                        <label for="firstW"
+                                                                        <label for="secondW"
                                                                             class="fw-bold form-label d-block">Masukkan
-                                                                            Beban Truck Kosong (<span
+                                                                            Beban Truck Dengan Produk (<span
                                                                                 class="fw-bold">KG</span>)</label>
-                                                                        @foreach ($firstW as $fw)
-                                                                            @if ($fw->order_id == $or->id)
-                                                                                <input type="hidden" name="e"
-                                                                                    value="{{ $fw->id }}">
-                                                                                <input type="text" class="form-control"
-                                                                                    name="firstW" min="1"
-                                                                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
-                                                                                    required
-                                                                                    value="{{ $fw->empty_load_weight }}">
-                                                                            @endif
-                                                                        @endforeach
+                                                                        <input type="text" class="form-control"
+                                                                            name="secondW" min="1"
+                                                                            oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+                                                                            required
+                                                                            value="{{ $or->surat_jalan->loaded_weight }}">
                                                                     </div>
 
                                                                 </div>

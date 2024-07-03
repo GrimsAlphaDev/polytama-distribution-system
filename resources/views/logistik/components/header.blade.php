@@ -106,6 +106,18 @@
                     <li class="breadcrumb-item">LPPI</li>
                     <li class="breadcrumb-item active"><span>Dashboard</span>
                     </li>
+                @elseif (request()->is('logistik/firstWeighning'))
+                    <li class="breadcrumb-item">LPPI</li>
+                    <li class="breadcrumb-item active"><span>Timbangan Pertama</span>
+                    </li>
+                @elseif (request()->is('logistik/loadingBarang'))
+                    <li class="breadcrumb-item">LPPI</li>
+                    <li class="breadcrumb-item active"><span>Loading Barang</span>
+                    </li>
+                @elseif (request()->is('logistik/secondWeighning'))
+                    <li class="breadcrumb-item">LPPI</li>
+                    <li class="breadcrumb-item active"><span>Timbangan Kedua</span>
+                    </li>
                 @else
                     <li class="breadcrumb-item active"><span>LPPI</span></li>
                 @endif

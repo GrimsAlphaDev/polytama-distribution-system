@@ -102,7 +102,8 @@
                                         <div class="mb-3">
                                             <label for="order_status" class="fw-bold form-label d-block">Status Pesanan
                                                 : </label>
-                                            <label for="order_status" class="form-label">{{ $order->shipmentStatus->name }}</label>
+                                            <label for="order_status"
+                                                class="form-label">{{ $order->shipmentStatus->name }}</label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="order_date" class="fw-bold form-label d-block">Keterangan Pesanan :
@@ -162,19 +163,41 @@
                                             </table>
                                         </div>
                                     </div>
-                                    
-                                    {{-- create 3 button right aligned for back edit and delete --}}
+
                                     <div class="col-12">
                                         <div class="d-flex justify-content-end">
-                                            <a href="{{ route('order-request') }}" class="btn btn-secondary me-2">Kembali</a>
-                                            <form action="{{ route('logistik.update', $order->id) }}"
-                                                method="post">
-                                                @csrf
-                                                <input type="hidden" name="status" value="6">
-                                                <button type="submit"
-                                                    class="btn btn-success text-white"
-                                                    onclick="return confirm('Update Truck {{ $order->armada->name }} Ketahap Penimbangan Pertama ?')">Update </button>
-                                            </form>
+                                            <a href="{{ route('order-request') }}"
+                                                class="btn btn-secondary me-2">Kembali</a>
+                                            @if ($order->surat_jalan)
+                                                @if ($order->shipment_status_id == 6 && $order->surat_jalan->empty_load_weight)
+                                                    <form action="{{ route('logistik.update', $order->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="status" value="7">
+                                                        <button type="submit" class="btn btn-success text-white"
+                                                            onclick="return confirm('Update Truck {{ $order->armada->name }} Ketahap Loading Barang ?')">Lanjutkan
+                                                            Ke Tahap Loading Barang</button>
+                                                    </form>
+                                                @elseif ($order->shipment_status_id == 7 && $order->surat_jalan->empty_load_weight != null)
+                                                    <form action="{{ route('logistik.update', $order->id) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="status" value="8">
+                                                        <button type="submit" class="btn btn-success text-white"
+                                                            onclick="return confirm('Update Truck {{ $order->armada->name }} Ketahap Penimbangan Kedua ?')">Lanjutkan
+                                                            Ke Tahap Timbangan Kedua</button>
+                                                    </form>
+                                                @elseif ($order->shipment_status_id == 8)
+                                                    <form action="" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="status" value="8">
+                                                        <button type="submit" class="btn btn-success text-white"
+                                                            onclick="return confirm('Terbitkan Surat Jalan Nomor Pesanan {{ $order->order_number }} ?')">Terbitkan
+                                                            Surat Jalan</button>
+                                                    </form>
+                                                @endif
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>

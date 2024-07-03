@@ -202,21 +202,78 @@
                                             <ul class="timeline">
 
                                                 @foreach ($histories as $hs)
-                                                <li class="timeline-item mb-5">
-                                                    <h5 class="fw-bold">{{ $hs->shipmentStatus->name }}</h5>
-                                                    <p>
-                                                        {{ $hs->created_at->format('d F Y H:i:s') }}
-                                                    </p>
-                                                    <p class="text-muted">
-                                                        Note : {{ $hs->note }}
-                                                    </p>
-                                                </li>
+                                                    <li class="timeline-item mb-5">
+                                                        <h5 class="fw-bold">{{ $hs->shipmentStatus->name }}</h5>
+                                                        <p>
+                                                            {{ $hs->created_at->format('d F Y H:i:s') }}
+                                                        </p>
+                                                        <p class="text-muted">
+                                                            Note : {{ $hs->note }}
+                                                        </p>
+                                                    </li>
                                                 @endforeach
                                             </ul>
                                         </section>
                                         <!-- Section: Timeline -->
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status Pesanan</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('updateStatusOrder', $order->id) }}" method="POST">
+                                    <div class="modal-body">
+                                        @csrf
+
+                                        @if ($order->shipment_status_id == 3)
+                                            <input type="hidden" name="shipment_status_id" value="4">
+
+                                            <div class="mb-3">
+                                                {{-- label muted --}}
+                                                <label class="form-label d-block text-muted">Status Shipement Akan Dirubah
+                                                    Menjadi: 'Driver
+                                                    Menuju Gudang'</label>
+                                            </div>
+                                        @elseif ($order->shipment_status_id == 4)
+                                            <input type="hidden" name="shipment_status_id" value="5">
+
+                                            <div class="mb-3">
+                                                {{-- label muted --}}
+                                                <label class="form-label d-block text-muted">Status Shipement Akan Dirubah
+                                                    Menjadi: 'Truck
+                                                    Tiba di Gudang'</label>
+                                            </div>
+                                        @endif
+
+                                        <div class="mb-3">
+                                            <label for="order_number" class="fw-bold form-label d-block">Nomor Pesanan :
+                                            </label>
+                                            <label for="order_number"
+                                                class="form-label">{{ $order->order_number }}</label>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="keterangan" class="fw-bold form-label d-block">Keterangan :
+                                            </label>
+                                            <textarea name="keterangan" id="keterangan" class="form-control" rows="3" placeholder="Keterangan"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" id="submitAccept">Submit</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -232,56 +289,7 @@
         @include('marketing.components.footer')
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status Pesanan</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('updateStatusOrder', $order->id) }}" method="POST">
-                    <div class="modal-body">
-                        @csrf
 
-                        @if ($order->shipment_status_id == 3)
-                            <input type="hidden" name="shipment_status_id" value="4">
-
-                            <div class="mb-3">
-                                {{-- label muted --}}
-                                <label class="form-label d-block text-muted">Status Shipement Akan Dirubah Menjadi: 'Driver
-                                    Menuju Gudang'</label>
-                            </div>
-                        @elseif ($order->shipment_status_id == 4)
-                            <input type="hidden" name="shipment_status_id" value="5">
-
-                            <div class="mb-3">
-                                {{-- label muted --}}
-                                <label class="form-label d-block text-muted">Status Shipement Akan Dirubah Menjadi: 'Truck
-                                    Tiba di Gudang'</label>
-                            </div>
-                        @endif
-
-                        <div class="mb-3">
-                            <label for="order_number" class="fw-bold form-label d-block">Nomor Pesanan :
-                            </label>
-                            <label for="order_number" class="form-label">{{ $order->order_number }}</label>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="keterangan" class="fw-bold form-label d-block">Keterangan :
-                            </label>
-                            <textarea name="keterangan" id="keterangan" class="form-control" rows="3" placeholder="Keterangan"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="submitAccept">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('scripts')

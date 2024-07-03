@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->integer('empty_load_weight')->nullable();
             $table->integer('loaded_weight')->nullable();
+            $table->string('doc_surjal')->nullable();
             $table->timestamps();
         });
     }

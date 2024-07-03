@@ -67,6 +67,7 @@ Route::group([
     Route::get('/order-request/show/{id}', [OrderRequestController::class, 'show'])->name('order-request.show');
     Route::post('/order-request/accept/{id}', [OrderRequestController::class, 'accept'])->name('order-request.accept');
     Route::post('/order-request/reject/{id}', [OrderRequestController::class, 'reject'])->name('order-request.reject');
+
 });
 
 
@@ -88,9 +89,16 @@ Route::group([
     Route::get('/logistik', [LogistikController::class, 'index'])->name('logistik');
     Route::get('/logistik/show/{id}', [LogistikController::class, 'show'])->name('logistik.show');
     Route::post('/logistik/updateTruck/{id}', [LogistikController::class, 'update'])->name('logistik.update');
+
     Route::get('/logistik/firstWeighning', [LogistikController::class, 'firstWeigh'])->name('logistik.firstW');
     Route::post('/logistik/firstWeigning/{id}', [LogistikController::class, 'insertFirstWeigh'])->name('logistik.insert.firstW');
     Route::put('/logistik/firstWeigning/{id}', [LogistikController::class, 'updateFirstWeigh'])->name('logistik.update.firstW');
+    
+    Route::get('/logistik/loadingBarang/', [LogistikController::class, 'loadingBarang'])->name('logistik.loading.barang');
+    
+    Route::get('/logistik/secondWeighning', [LogistikController::class, 'secondWeigh'])->name('logistik.secondW');
+    Route::post('/logistik/secondWeigning/{id}', [LogistikController::class, 'insertSecondWeigh'])->name('logistik.insert.secondW');
+
 });
 
 Route::get('/logout', [AuthentificationController::class, 'logout'])->name('logout');

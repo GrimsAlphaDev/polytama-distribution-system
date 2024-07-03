@@ -14,6 +14,7 @@ class SuratJalan extends Model
         'order_id',
         'empty_load_weight',
         'loaded_weight',
+        'doc_surjal'
     ];
 
     public function Order()

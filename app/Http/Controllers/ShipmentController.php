@@ -45,12 +45,14 @@ class ShipmentController extends Controller
                 $totalWeight += $orderDetail->product->weight * $orderDetail->quantity;
             }
             
+            $histories = OrderHistory::where('order_id', $order->id)->orderBy('created_at', 'asc')->where('shipment_status_id', '>', 2)->get();
+
         } else {
             $total = 0;
             $totalWeight = 0;
+            $histories = [];
         } 
 
-        $histories = OrderHistory::where('order_id', $order->id)->orderBy('created_at', 'asc')->where('shipment_status_id', '>', 2)->get();
 
         return view('driver.shipment.index', compact('order', 'totalWeight', 'total', 'histories'));
     }
