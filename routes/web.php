@@ -99,6 +99,8 @@ Route::group([
     Route::get('/logistik/secondWeighning', [LogistikController::class, 'secondWeigh'])->name('logistik.secondW');
     Route::post('/logistik/secondWeigning/{id}', [LogistikController::class, 'insertSecondWeigh'])->name('logistik.insert.secondW');
 
+    Route::post('/logistik/terbitkanSJ/{id}', [LogistikController::class, 'terbitkan_suratJalan'])->name('logistik.terbitkanSJ');
+
 });
 
 Route::get('/logout', [AuthentificationController::class, 'logout'])->name('logout');

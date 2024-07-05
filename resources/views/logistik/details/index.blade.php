@@ -188,7 +188,7 @@
                                                             Ke Tahap Timbangan Kedua</button>
                                                     </form>
                                                 @elseif ($order->shipment_status_id == 8)
-                                                    <form action="" method="post">
+                                                    <form action="{{ route('logistik.terbitkanSJ', $order->id) }}" method="post">
                                                         @csrf
                                                         <input type="hidden" name="status" value="8">
                                                         <button type="submit" class="btn btn-success text-white"
