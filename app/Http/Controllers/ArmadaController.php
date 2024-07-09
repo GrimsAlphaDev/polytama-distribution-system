@@ -12,6 +12,14 @@ class ArmadaController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function dashboard()
+    {
+        $armadas = Armada::where('user_id', auth()->user()->id)->orderBy('updated_at', 'desc')->get();
+
+        return view('transporter.dashboard.index', compact('armadas'));
+    }
+
     public function index()
     {
         $armadas = Armada::where('user_id', auth()->user()->id)->orderBy('updated_at', 'desc')->get();

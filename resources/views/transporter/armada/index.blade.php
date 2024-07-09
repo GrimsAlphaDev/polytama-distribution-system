@@ -47,7 +47,7 @@
                     <!-- Table -->
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">Customers Data</div>
+                            <div class="card-header">Data Armada</div>
                             <div class="card-body">
                                 <!-- Add a wrapper around the table for horizontal scrolling -->
                                 <div class="table-responsive">
@@ -109,25 +109,6 @@
                     </div>
                 </div>
 
-                <div class="row g-4 mb-4">
-                    <!-- Table -->
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h4 class="card-title">Data Kondisi Kendaraan</h4>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="mt-5">
-                                    <canvas id="myChart" class="w-100"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
         @include('marketing.components.footer')
@@ -163,46 +144,5 @@
             $('#customersTable').DataTable();
         });
 
-        // get this year based on global timezone
-        const date = new Date();
-        const year = date.getFullYear();
-
-        // get armada
-        const armadas = @json($armadas);
-
-        const goodCondition = armadas.filter(armada => armada.condition === 'Baik').length;
-        const repairCondition = armadas.filter(armada => armada.condition === 'Sedang diperbaiki').length;
-        const badCondition = armadas.filter(armada => armada.condition === 'Rusak').length;
-
-        const data = {
-            labels: [
-                'Baik',
-                'Sedang Diperbaiki',
-                'Rusak'
-            ],
-            datasets: [{
-                label: 'Data Kondisi Kendaraan',
-                data: [goodCondition, repairCondition, badCondition],
-                backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
-                ],
-                hoverOffset: 4
-            }]
-        };
-
-        // Config block
-        const config = {
-            type: 'polarArea',
-            data: data,
-            options: {}
-        };
-
-        // Render chart
-        window.onload = function() {
-            var ctx = document.getElementById('myChart').getContext('2d');
-            new Chart(ctx, config);
-        };
     </script>
 @endsection

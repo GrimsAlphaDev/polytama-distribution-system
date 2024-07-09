@@ -31,9 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group([
     'middleware' => ['auth', 'marketing']
 ], function () {
-    Route::get('/marketing', function () {
-        return view('marketing.dashboard.index');
-    })->name('marketing');
+    Route::get('/marketing', [CustomerController::class, 'dashboard'])->name('marketing');
     
     Route::get('/customer', [CustomerController::class, 'index'])->name('customer');
     Route::get('/customer/create', [CustomerController::class, 'create'])->name('customer.create');
@@ -56,9 +54,7 @@ Route::group([
 Route::group([
     'middleware' => ['auth', 'transporter'] 
 ], function () {
-    Route::get('/transporter', function () {
-        return view('transporter.dashboard.index');
-    })->name('transporter');
+    Route::get('/transporter', [ArmadaController::class, 'dashboard'])->name('transporter');
     
     Route::get('/armada', [ArmadaController::class, 'index'])->name('armada');
     Route::get('/armada/create' , [ArmadaController::class, 'create'])->name('armada.create');
@@ -84,6 +80,8 @@ Route::group([
     Route::get('/driver/shipment', [ShipmentController::class, 'index'])->name('driver.shipment');
     Route::post('/driver/updateStatusDriver/{id}', [ShipmentController::class , 'updateStatusDriver'])->name('driver.updateStatusDriver');
     Route::post('/updateStatusOrder/{id}', [ShipmentController::class, 'updateStatus'])->name('updateStatusOrder');
+
+    Route::get('/driver/shipmentHistory', [ShipmentController::class, 'shipmentHistory'])->name('driver.shipmentHistory');
     
 });
 

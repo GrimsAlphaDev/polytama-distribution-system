@@ -18,5 +18,10 @@
             {{ request()->is('driver/shipment') || request()->is('driver/shipment/*') ? 'active' : '' }}"
                 href="{{ route('driver.shipment') }}">
                 <i class="bi bi-truck me-3"></i> Active Shipment</a></li>
+        <li class="nav-item"><a
+                class="nav-link
+            {{ request()->is('driver/shipmentHistory') ? 'active' : '' }}"
+                href="{{ route('driver.shipmentHistory') }}">
+                <i class="bi bi-calendar me-3"></i> Shipment History</a></li>
     </ul>
 </div>

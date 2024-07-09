@@ -60,6 +60,52 @@
                     <!-- /.col-->
                 </div>
                 <!-- /.row-->
+                <!-- /.row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">Availibility History</div>
+                            <div class="card-body">
+                                <table class="table table-responsive table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($avail as $availability)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    @if ($availability->status == 0)
+                                                        <span class="badge bg-danger">Not Avaible</span>
+                                                    @elseif ($availability->status == 1)
+                                                        <span class="badge bg-success">Avaible</span>
+                                                    @elseif ($availability->status == 2)
+                                                        <span class="badge bg-info">On Duty</span>
+                                                    @endif
+                                                </td>
+                                                @php
+                                                    $date = date_create($availability->created_at);
+                                                    $date = date_format($date, 'd F Y H:i:s');
+                                                @endphp
+                                                <td>{{ $date }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="3" class="text-center">No Data</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col-->
+                </div>
+                <!-- /.row-->
             </div>
         </div>
         @include('driver.components.footer')

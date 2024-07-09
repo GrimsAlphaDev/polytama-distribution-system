@@ -16,6 +16,7 @@ class ShipmentController extends Controller
 
         $order = Order::where('driver_id', auth()->user()->id)->where('shipment_status_id', '!=', 11)->first();
         $driverAvail = Availability::where('created_at', '>=', now()->startOfDay())->where('created_at', '<=', now()->endOfDay())->where('user_id', auth()->user()->id)->first();
+        
         if ($order) {
             $status = 2;
         } else {
@@ -26,7 +27,9 @@ class ShipmentController extends Controller
             }
         }
 
-        return view('driver.dashboard.index', compact('status'));
+        $avail = Availability::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+
+        return view('driver.dashboard.index', compact('status', 'avail'));
     }
 
     public function index()
@@ -124,5 +127,12 @@ class ShipmentController extends Controller
 
 
         return redirect()->route('driver.shipment')->with('success', 'Sukses')->with('description', 'Status driver berhasil diubah');
+    }
+
+    public function shipmentHistory()
+    {
+        $orders = OrderHistory::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+
+        return view('driver.shipment.history', compact('orders'));
     }
 }

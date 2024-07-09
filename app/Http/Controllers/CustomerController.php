@@ -3,14 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+
+    public function dashboard()
+    {
+        $customers = Customer::orderBy('updated_at', 'desc')->get();
+
+        $orders = Order::orderBy('updated_at', 'desc')->get();
+
+        return view('marketing.dashboard.index', compact('customers', 'orders'));
+    }
+
     public function index()
     {
         $customers = Customer::orderBy('updated_at', 'desc')->get();
-        // dd($customers[0]);
+        
         return view('marketing.customer.index', compact('customers'));
     }
 
