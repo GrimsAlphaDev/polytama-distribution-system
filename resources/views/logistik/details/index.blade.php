@@ -195,7 +195,7 @@
                                                             onclick="return confirm('Terbitkan Surat Jalan Nomor Pesanan {{ $order->order_number }} ?')">Terbitkan
                                                             Surat Jalan</button>
                                                     </form>
-                                                @elseif ($order->shipment_status_id == 9)
+                                                @elseif ($order->shipment_status_id > 8)
                                                     <form action="{{ route('viewSJ', $order->surat_jalan->id) }}" id="suratJalanForm" target="_blank" method="post">
                                                         @csrf
                                                         <button type="submit" class="btn btn-success text-white" id="buttonView" >View Surat Jalan</button>

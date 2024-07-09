@@ -19,7 +19,7 @@ class LogistikController extends Controller
 
         $orders = Order::where('shipment_status_id', 5)->orderBy('updated_at', 'asc')->get();
 
-        $terbited = Order::where('shipment_status_id', 9)->orderBy('updated_at', 'asc')->get();
+        $terbited = Order::where('shipment_status_id', '>', 8)->orderBy('updated_at', 'asc')->get();
 
         return view('logistik.dashboard.index', compact('orders', 'terbited'));
     }

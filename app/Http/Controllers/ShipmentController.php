@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Availability;
 use App\Models\Order;
 use App\Models\OrderHistory;
+use App\Models\SuratJalan;
 use Illuminate\Http\Request;
 
 class ShipmentController extends Controller
@@ -13,15 +14,13 @@ class ShipmentController extends Controller
     public function dashboard()
     {
 
+        $order = Order::where('driver_id', auth()->user()->id)->where('shipment_status_id', '!=', 11)->first();
         $driverAvail = Availability::where('created_at', '>=', now()->startOfDay())->where('created_at', '<=', now()->endOfDay())->where('user_id', auth()->user()->id)->first();
-
-        if ($driverAvail) {
-            $status = $driverAvail->status;
+        if ($order) {
+            $status = 2;
         } else {
-            // check if driver is on duty
-            $order = Order::where('driver_id', auth()->user()->id)->where('shipment_status_id', '!=', 11)->first();
-            if ($order) {
-                $status = 2;
+            if ($driverAvail) {
+                $status = $driverAvail->status;
             } else {
                 $status = 0;
             }
@@ -33,25 +32,32 @@ class ShipmentController extends Controller
     public function index()
     {
 
-        $order = Order::where('driver_id', auth()->user()->id)->first();
+        $order = Order::where('driver_id', auth()->user()->id)->where('shipment_status_id', '!=', 11)->first();
         // dd($order);
 
-        if($order){
+        if ($order) {
 
             $total = $order->orderDetails->sum('total');
-    
+
             $totalWeight = 0;
             foreach ($order->orderDetails as $orderDetail) {
                 $totalWeight += $orderDetail->product->weight * $orderDetail->quantity;
             }
-            
-            $histories = OrderHistory::where('order_id', $order->id)->orderBy('created_at', 'asc')->where('shipment_status_id', '>', 2)->get();
 
+            $surat_jalan = SuratJalan::where('order_id', $order->id)->first();
+
+            // join order with order with surat jalan
+            if ($surat_jalan) {
+                $order->surat_jalan = $surat_jalan;
+            }
+
+            $histories = OrderHistory::where('order_id', $order->id)->orderBy('created_at', 'asc')->where('shipment_status_id', '>', 2)->get();
         } else {
+            $order = null;
             $total = 0;
             $totalWeight = 0;
             $histories = [];
-        } 
+        }
 
 
         return view('driver.shipment.index', compact('order', 'totalWeight', 'total', 'histories'));
@@ -81,7 +87,8 @@ class ShipmentController extends Controller
         return redirect()->route('driver')->with('success', 'Sukses')->with('description', 'Status driver berhasil diubah');
     }
 
-    public function updateStatus($id, Request $request){
+    public function updateStatus($id, Request $request)
+    {
         $request->validate([
             'shipment_status_id' => 'required|numeric'
         ], [
@@ -89,7 +96,7 @@ class ShipmentController extends Controller
             'shipment_status_id.numeric' => 'Ada Kesalahan Pada Sistem, Silahkan Hubungi Admin'
         ]);
 
-        if($request->keterangan == null){
+        if ($request->keterangan == null) {
             $keterangan = '-';
         } else {
             $keterangan = $request->keterangan;
@@ -115,8 +122,7 @@ class ShipmentController extends Controller
         $history->updated_at = $date;
         $history->save();
 
-        
-        return redirect()->route('driver.shipment')->with('success', 'Sukses')->with('description', 'Status driver berhasil diubah');
 
+        return redirect()->route('driver.shipment')->with('success', 'Sukses')->with('description', 'Status driver berhasil diubah');
     }
 }

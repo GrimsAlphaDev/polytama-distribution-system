@@ -63,49 +63,25 @@
                 <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
             </li>
             <li class="nav-item dropdown"><a class="nav-link py-0 pe-0" data-coreui-toggle="dropdown" href="#"
-                    role="button" aria-haspopup="true" aria-expanded="false">
-                    <div class="avatar avatar-md"><i class="avatar-img bi bi-person-circle"
-                            src="assets/img/avatars/8.jpg" alt="{{ auth()->user()->name }}"></i></div>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end pt-0">
-                    {{-- <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">
-                        Account</div><a class="dropdown-item" href="#">
-                        <svg class="icon me-2">
-                            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-bell"></use>
-                        </svg> Updates<span class="badge badge-sm bg-info ms-2">42</span></a><a class="dropdown-item"
-                        href="#">
-                        <svg class="icon me-2">
-                            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-envelope-open"></use>
-                        </svg> Messages<span class="badge badge-sm bg-success ms-2">42</span></a><a
-                        class="dropdown-item" href="#">
-                        <svg class="icon me-2">
-                            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-task"></use>
-                        </svg> Tasks<span class="badge badge-sm bg-danger ms-2">42</span></a><a class="dropdown-item"
-                        href="#">
-                        <svg class="icon me-2">
-                            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-comment-square"></use>
-                        </svg> Comments<span class="badge badge-sm bg-warning ms-2">42</span></a>
-                    <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold my-2">
-                        <div class="fw-semibold">Settings</div>
-                    </div><a class="dropdown-item" href="#">
-                        <svg class="icon me-2">
-                            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-user"></use>
-                        </svg> Profile</a><a class="dropdown-item" href="#">
-                        <svg class="icon me-2">
-                            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-settings"></use>
-                        </svg> Settings</a><a class="dropdown-item" href="#">
-                        <svg class="icon me-2">
-                            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-credit-card"></use>
-                        </svg> Payments<span class="badge badge-sm bg-secondary ms-2">42</span></a><a
-                        class="dropdown-item" href="#">
-                        <svg class="icon me-2">
-                            <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-file"></use>
-                        </svg> Projects<span class="badge badge-sm bg-primary ms-2">42</span></a> --}}
-                    <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="return confirm('Yakin Ingin Logout ?')">
-                        <i class="bi bi-door-open me-3"></i> Logout</a>
+                role="button" aria-haspopup="true" aria-expanded="false">
+                <div class="avatar avatar-md"><i class="avatar-img bi bi-person-circle"
+                        src="assets/img/avatars/8.jpg" alt="{{ auth()->user()->name }}"></i></div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end pt-0">
+                <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">
+                    Name</div>
+                <a class="dropdown-item">{{ auth()->user()->name }}</a>
+                <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold my-2">
+                    <div class="fw-semibold">Settings</div>
                 </div>
-            </li>
+                <a class="dropdown-item" href="{{ route('profile.setting') }}">
+                    <i class="bi bi-person-gear me-3"></i> Profile</a>
+                </a>
+                <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="return confirm('Yakin Ingin Logout ?')">
+                    <i class="bi bi-door-open me-3"></i> Logout</a>
+            </div>
+        </li>
         </ul>
     </div>
     <div class="container-fluid px-4">
@@ -134,19 +110,23 @@
                     <li class="breadcrumb-item active"><span>Customer's Order</span>
                     @elseif (request()->is('order/create'))
                     <li class="breadcrumb-item">Marpolind</li>
-                    <li class="breadcrumb-item"><a href="{{ route('order') }}"
-                            class="text-decoration-none">Customer's Order</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('order') }}" class="text-decoration-none">Customer's
+                            Order</a></li>
                     <li class="breadcrumb-item active"><span>Add New Order</span></li>
                 @elseif (request()->is('order/show/*'))
                     <li class="breadcrumb-item">Marpolind</li>
-                    <li class="breadcrumb-item"><a href="{{ route('order') }}"
-                            class="text-decoration-none">Customer's Order</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('order') }}" class="text-decoration-none">Customer's
+                            Order</a></li>
                     <li class="breadcrumb-item active"><span>Detail Order</span></li>
                 @elseif (request()->is('order/edit/*'))
                     <li class="breadcrumb-item">Marpolind</li>
-                    <li class="breadcrumb-item"><a href="{{ route('order') }}"
-                            class="text-decoration-none">Customer's Order</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('order') }}" class="text-decoration-none">Customer's
+                            Order</a></li>
                     <li class="breadcrumb-item active"><span>Edit Order</span></li>
+                @elseif (request()->is('profile/setting'))
+                    <li class="breadcrumb-item">Marpolind</li>
+                    <li class="breadcrumb-item active"><span>Profile Setting</span>
+                    </li>
                 @else
                     <li class="breadcrumb-item active"><span>Marpolind</span></li>
                 @endif

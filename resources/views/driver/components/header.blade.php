@@ -20,9 +20,6 @@
         </ul>
         <ul class="header-nav ms-auto"></ul>
         <ul class="header-nav">
-            <li class="nav-item py-1">
-                <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
-            </li>
             <li class="nav-item dropdown">
                 <button class="btn btn-link nav-link py-2 px-2 d-flex align-items-center" type="button"
                     aria-expanded="false" data-coreui-toggle="dropdown">
@@ -66,6 +63,15 @@
                             src="assets/img/avatars/8.jpg" alt="{{ auth()->user()->name }}"></i></div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
+                    <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">
+                        Name</div>
+                    <a class="dropdown-item">{{ auth()->user()->name }}</a>
+                    <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold my-2">
+                        <div class="fw-semibold">Settings</div>
+                    </div>
+                    <a class="dropdown-item" href="{{ route('profile.setting') }}">
+                        <i class="bi bi-person-gear me-3"></i> Profile</a>
+                    </a>
                     <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="return confirm('Yakin Ingin Logout ?')">
                         <i class="bi bi-door-open me-3"></i> Logout</a>
@@ -83,6 +89,10 @@
                 @elseif (request()->is('driver/shipment') || request()->is('driver/shipment/*'))
                     <li class="breadcrumb-item">Dripolind</li>
                     <li class="breadcrumb-item active"><span>Shipment</span>
+                    </li>
+                @elseif (request()->is('profile/setting'))
+                    <li class="breadcrumb-item">Dripolind</li>
+                    <li class="breadcrumb-item active"><span>Profile Setting</span>
                     </li>
                 @else
                     <li class="breadcrumb-item active"><span>Dripolind</span></li>

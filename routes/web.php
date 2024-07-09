@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/checkRoles', [AuthentificationController::class, 'checkRoles'])->name('checkRoles');
     Route::post('/viewSJ/{id}', [LogistikController::class, 'viewSJ'])->name('viewSJ');
     Route::get('/profile/setting', [ProfileController::class, 'index'])->name('profile.setting');
+    Route::put('/profile/setting/update/{id}', [ProfileController::class, 'updateDetail'])->name('profile.setting.update');
+    Route::put('/profile/setting/chagePass/{id}', [ProfileController::class, 'chagePass'])->name('profile.setting.changePass');
 });
 
 Route::group([

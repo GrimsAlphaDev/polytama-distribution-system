@@ -80,7 +80,7 @@
                     <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold my-2">
                         <div class="fw-semibold">Settings</div>
                     </div>
-                    <a class="dropdown-item">
+                    <a class="dropdown-item" href="{{ route('profile.setting') }}">
                         <i class="bi bi-person-gear me-3"></i> Profile</a>
                     </a>
                     <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout') }}"
@@ -108,6 +108,10 @@
                 @elseif (request()->is('logistik/secondWeighning'))
                     <li class="breadcrumb-item">LPPI</li>
                     <li class="breadcrumb-item active"><span>Timbangan Kedua</span>
+                    </li>
+                @elseif (request()->is('profile/setting'))
+                    <li class="breadcrumb-item">LPPI</li>
+                    <li class="breadcrumb-item active"><span>Profile Setting</span>
                     </li>
                 @else
                     <li class="breadcrumb-item active"><span>LPPI</span></li>

@@ -181,7 +181,23 @@
                                                         data-bs-toggle="modal" data-bs-target="#exampleModal">Update
                                                         Status Telah Tiba Di Warehouse</button>
                                                 @endif
-
+                                                @if ($order->shipment_status_id == 9)
+                                                    <button type="submit" class="btn btn-primary ms-2 text-white me-2"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">Update
+                                                        Status Sedang Mengirim Produk</button>
+                                                @endif
+                                                @if ($order->shipment_status_id == 10)
+                                                    <button type="submit" class="btn btn-primary ms-2 text-white me-2"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">Selesaikan Pesanan</button>
+                                                @endif
+                                                @if ($order->shipment_status_id > 8)
+                                                    <form action="{{ route('viewSJ', $order->surat_jalan->id) }}"
+                                                        id="suratJalanForm" target="_blank" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success text-white"
+                                                            id="buttonView">View Surat Jalan</button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -240,8 +256,8 @@
 
                                             <div class="mb-3">
                                                 {{-- label muted --}}
-                                                <label class="form-label d-block text-muted">Status Shipement Akan Dirubah
-                                                    Menjadi: 'Driver
+                                                <label class="form-label d-block text-muted">Status Shipment Akan Dirubah
+                                                    Menjadi 'Driver
                                                     Menuju Gudang'</label>
                                             </div>
                                         @elseif ($order->shipment_status_id == 4)
@@ -249,9 +265,25 @@
 
                                             <div class="mb-3">
                                                 {{-- label muted --}}
-                                                <label class="form-label d-block text-muted">Status Shipement Akan Dirubah
-                                                    Menjadi: 'Truck
+                                                <label class="form-label d-block text-muted">Status Shipment Akan Dirubah
+                                                    Menjadi 'Truck
                                                     Tiba di Gudang'</label>
+                                            </div>
+                                        @elseif ($order->shipment_status_id == 9)
+                                            <input type="hidden" name="shipment_status_id" value="10">
+
+                                            <div class="mb-3">
+                                                {{-- label muted --}}
+                                                <label class="form-label d-block text-muted">Status Shipment Akan Dirubah
+                                                    Menjadi 'Driver Mengirim Pesanan'</label>
+                                            </div>
+                                        @elseif ($order->shipment_status_id == 10)
+                                            <input type="hidden" name="shipment_status_id" value="11">
+
+                                            <div class="mb-3">
+                                                {{-- label muted --}}
+                                                <label class="form-label d-block text-muted">Status Shipment Akan Dirubah
+                                                    Menjadi 'Pesanan Telah Selesai'</label>
                                             </div>
                                         @endif
 
@@ -331,6 +363,16 @@
             document.getElementById('total').textContent = total.toLocaleString('id-ID', {
                 style: 'currency',
                 currency: 'IDR'
+            });
+
+            document.getElementById('suratJalanForm').addEventListener('submit', function(event) {
+                // Tampilkan animasi loading
+                loaderContainer.style.display = 'block';
+
+                // Tambahkan sedikit penundaan untuk memastikan tab baru terbuka sebelum menghentikan animasi
+                setTimeout(function() {
+                    loaderContainer.style.display = 'none';
+                }, 1000); // 1 detik penundaan
             });
         });
     </script>
