@@ -7,7 +7,9 @@ use App\Models\Armada;
 use App\Models\Availability;
 use App\Models\OrderHistory;
 use App\Models\SuratJalan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 use TCPDF;
 
 class LogistikController extends Controller
@@ -17,7 +19,9 @@ class LogistikController extends Controller
 
         $orders = Order::where('shipment_status_id', 5)->orderBy('updated_at', 'asc')->get();
 
-        return view('logistik.dashboard.index', compact('orders'));
+        $terbited = Order::where('shipment_status_id', 9)->orderBy('updated_at', 'asc')->get();
+
+        return view('logistik.dashboard.index', compact('orders', 'terbited'));
     }
 
     public function show($id)
@@ -221,7 +225,6 @@ class LogistikController extends Controller
             }
         }
 
-        // dd($firstW);
         return view('logistik.penimbangan.penimbangan-kedua', compact('orders'));
     }
 
@@ -278,6 +281,32 @@ class LogistikController extends Controller
 
     public function terbitkan_suratJalan($id, Request $request)
     {
+
+        $orders = Order::find($id);
+
+        $sj = SuratJalan::get();
+
+        if ($sj) {
+            foreach ($sj as $s) {
+                if ($orders->id == $s->order_id) {
+                    $orders->surat_jalan = $s;
+                }
+            }
+        }
+
+        // count total weight order
+        $totalWeight = 0;
+        foreach ($orders->orderDetails as $orderDetail) {
+            $totalWeight += $orderDetail->product->weight * $orderDetail->quantity;
+        }
+
+        // get now date base on jakarta
+        date_default_timezone_set('Asia/Jakarta');
+        // sate $date to 14 maret 2021 format
+        $date = date('d F Y');
+
+        $transporter = User::where('id', $orders->transporter_id)->first();
+
         // Path to custom logo
         $logoPath = public_path('assets/img/logo-1.png');
 
@@ -326,74 +355,164 @@ class LogistikController extends Controller
         // Define main HTML content
         $html =  '
             <h2 style="text-align:center;">SURAT JALAN</h2>
-            <table cellspacing="0" cellpadding="1" border="1">
-                <tr>
-                    <td>No SJ</td>
-                    <td></td>
-                    <td>Tanggal</td>
-                    <td>01 Jan 1970</td>
-                </tr>
-                <tr>
-                    <td>Atas Permintaan</td>
-                    <td></td>
-                    <td>Dikirim Kepada</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Dikirim Oleh</td>
-                    <td></td>
-                    <td>No KO</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>No Polisi</td>
-                    <td></td>
-                    <td>No PO</td>
-                    <td></td>
-                </tr>
-            </table>
-            <br>
-            <table cellspacing="0" cellpadding="1" border="1">
-                <tr>
-                    <th>NO</th>
-                    <th>NAMA BARANG</th>
-                    <th>LOT</th>
-                    <th>JUMLAH</th>
-                    <th>CATATAN</th>
-                </tr>
-                <tr>
-                    <td height="100"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </table>
-            <br>
             <table cellspacing="0" cellpadding="1" border="0">
                 <tr>
-                    <td>Dikeluarkan Oleh</td>
-                    <td></td>
-                    <td>Dikirim Oleh</td>
-                    <td></td>
-                    <td>Diterima Oleh</td>
+                    <td>No SJ </td>
+                    <td>: ' . htmlspecialchars($orders->surat_jalan->no_sj, ENT_QUOTES, 'UTF-8') .
+            '</td>
+                    <td>Nomor Pesanan</td>
+                    <td>: ' . $orders->order_number . '</td>
                 </tr>
                 <tr>
-                    <td>Logistic Manager PT Polytama Propindo</td>
-                    <td></td>
-                    <td>Tanggal WIB</td>
-                    <td></td>
-                    <td>Kepala Gudang Pelanggan</td>
+                    <td>Tanggal</td>
+                    <td>: ' . $date . '</td>
+                    <td>No Polisi</td>
+                    <td>: ' . $orders->armada->license_plate . '</td>
                 </tr>
+                <tr>
+                    <td>Beban Muatan Produk </td>
+                    <td>: ' . $totalWeight . ' KG</td>
+                    <td>Total Beban:</td>
+                    <td>: ' . $orders->surat_jalan->loaded_weight . ' KG</td>
+                </tr>
+                <tr>
+                    <td>Atas Permintaan: </td>
+                    <td></td>
+                    <td>Dikirim Oleh:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="font-weight:bold;">' . $orders->customer->name . '</td>
+                    <td colspan="2" style="font-weight:bold;">' . $orders->driver->name . '</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>' . $orders->customer->alamat . '</td>
+                    <td></td>
+                    <td>' . $orders->driver->email . '</td>
+                    <td></td>
+                </tr>
+                
             </table>
+
+            <br><br>
+            
+            <table cellspacing="1" cellpadding="1" border="1" style="border: none;">
+                <thead>
+                    <tr style="background-color: lightgrey;">
+                        <th style="font-weight: bold; text-align: center;">NO</th>
+                        <th style="font-weight: bold; text-align: center;">NAMA BARANG</th>
+                        <th style="font-weight: bold; text-align: center;">BERAT</th>
+                        <th style="font-weight: bold; text-align: center;">JUMLAH</th>
+                        <th style="font-weight: bold; text-align: center;">HARGA</th>
+                    </tr>
+                </thead>
+                <tbody>
         ';
 
-        // Print text using writeHTMLCell()
+        $no = 1;
+        foreach ($orders->orderDetails as $orderDetail) {
+            $html .= '
+                <tr>
+                    <td style="text-align: center; border: none;">' . $no++ . '</td>
+                    <td style="text-align: center; border: none;">' . $orderDetail->product->name . '</td>
+                    <td style="text-align: center; border: none;">' . $orderDetail->product->weight . ' KG</td>
+                    <td style="text-align: center; border: none;">' . $orderDetail->quantity . '</td>
+                    <td style="text-align: left; border: none;"> Rp. ' . number_format($orderDetail->total, 0, ',', '.') . '</td>
+                </tr>
+            ';
+        }
+
+
+        $html .= '
+                <tr>
+                    <td height="100"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                </tr>
+            </table>
+
+            <br><br>
+            <table cellspacing="0" cellpadding="1" border="0">
+                <tr>
+                    <td colspan="2" style="text-align:center;">Dikeluarkan Oleh</td>
+                    <td style="text-align:center;"></td>
+                    <td colspan="2" style="text-align:center;">Diterima Oleh</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><img src="'. public_path('assets/qr/logistic_manager.png') .'" width="100"/></td>
+                    <td style="text-align:center;"></td>
+                    <td colspan="2" style="text-align:center;">Kepala Gudang Pelanggan</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center; font-weight:bold;">Logistic Manager PT Polytama Propindo</td>
+                    <td style="text-align:center;"></td>
+                    <td colspan="2" style="text-align:center;">Kepala Gudang Pelanggan</td>
+                </tr>
+            </table>';
+
+        // Ensure you output the HTML content to the PDF
         $pdf->writeHTML($html, true, false, true, false, '');
 
         // Output PDF
-        $pdf->Output('surat_jalan.pdf', 'I');
+        $pdfContent = $pdf->Output('surat_jalan.pdf', 'S');
 
-        return view('logistik.details.index', compact('order', 'total', 'totalWeight', 'drivers', 'armadas'));
+        $base64PDF = base64_encode($pdfContent);
+
+        // work
+        // dd($base64PDF);
+
+        try {
+            $surjal = SuratJalan::find($orders->surat_jalan->id);
+            $surjal->doc_surjal = $base64PDF;
+            $surjal->update();
+
+            // update shipment status
+            // find order
+            $orderUpdate = Order::find($orders->id);
+            $orderUpdate->shipment_status_id = 9;
+            $orderUpdate->update();
+
+            // update history
+            $history = new OrderHistory();
+            $history->order_id = $orders->id;
+            $history->shipment_status_id = 9;
+            $history->user_id = auth()->user()->id;
+            $history->note = 'Surat Jalan Telah Diterbitkan';
+            $history->created_at = now();
+            $history->updated_at = now();
+            $history->save();
+
+            return redirect()->route('logistik')->with('success', 'Berhasil')->with('description', 'Surat Jalan Telah Diterbitkan');
+
+        } catch (\Throwable $th) {
+            dd($th);
+            return redirect()->route('logistik.loading.barang')->withErrors([
+                'Error' => 'Gagal Menerbitkan Surat Jalan',
+            ]);
+
+        }
+
     }
+
+    public function viewSJ($id)
+    {
+        $sj = SuratJalan::find($id);
+
+        // decode base64 to pdf
+        $pdf = base64_decode($sj->doc_surjal);
+
+        // return response
+
+        return response($pdf)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'inline; filename="surat_jalan.pdf"');
+            
+    }
+
+
 }
+
+

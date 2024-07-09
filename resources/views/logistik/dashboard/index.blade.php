@@ -76,6 +76,49 @@
                         </div>
                     </div>
                 </div>
+                <div class="row g-4 mb-4">
+                    <!-- Table -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">Surat Jalan Yang Berhasil Diterbitkan</div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="suratJalan" class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Order Number</th>
+                                                <th>Customer Name</th>
+                                                <th>Driver Assigned</th>
+                                                <th>Keterangan</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($terbited as $or)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $or->order_number }}</td>
+                                                    <td>{{ $or->customer->name }}</td>
+                                                    <td>{{ $or->driver->name ?? 'Driver Belum Ditunjuk' }}</td>
+                                                    <td>{{ $or->keterangan }}</td>
+                                                    <td>{{ $or->shipmentStatus->name }}</td>
+                                                    <td>
+                                                        <div class="d-inline-flex">
+                                                            <a href="{{ route('logistik.show', $or->id) }}"
+                                                                class="btn btn-primary btn-sm me-2">Detail</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         @include('logistik.components.footer')
@@ -107,6 +150,7 @@
     <script>
         $(document).ready(function() {
             $('#order-request').DataTable();
+            $('#suratJalan').DataTable();
         });
     </script>
 @endsection

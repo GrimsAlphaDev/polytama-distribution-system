@@ -8,7 +8,7 @@ use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\OrderRequestController;
 use App\Http\Controllers\AuthentificationController;
 use App\Http\Controllers\LogistikController;
-
+use App\Http\Controllers\ProfileController;
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', function () {
@@ -22,6 +22,8 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/checkRoles', [AuthentificationController::class, 'checkRoles'])->name('checkRoles');
+    Route::post('/viewSJ/{id}', [LogistikController::class, 'viewSJ'])->name('viewSJ');
+    Route::get('/profile/setting', [ProfileController::class, 'index'])->name('profile.setting');
 });
 
 Route::group([
@@ -100,6 +102,7 @@ Route::group([
     Route::post('/logistik/secondWeigning/{id}', [LogistikController::class, 'insertSecondWeigh'])->name('logistik.insert.secondW');
 
     Route::post('/logistik/terbitkanSJ/{id}', [LogistikController::class, 'terbitkan_suratJalan'])->name('logistik.terbitkanSJ');
+
 
 });
 

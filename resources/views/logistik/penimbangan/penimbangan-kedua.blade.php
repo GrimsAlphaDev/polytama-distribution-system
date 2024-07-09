@@ -29,7 +29,7 @@
                     <!-- Table -->
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">Timbangan Truck Pertama (Dalam Keadaan Kosong)</div>
+                            <div class="card-header">Timbangan Truck Kedua (Dalam Keadaan Loaded)</div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table id="order-request" class="table table-striped table-hover">

@@ -195,9 +195,13 @@
                                                             onclick="return confirm('Terbitkan Surat Jalan Nomor Pesanan {{ $order->order_number }} ?')">Terbitkan
                                                             Surat Jalan</button>
                                                     </form>
+                                                @elseif ($order->shipment_status_id == 9)
+                                                    <form action="{{ route('viewSJ', $order->surat_jalan->id) }}" id="suratJalanForm" target="_blank" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success text-white" id="buttonView" >View Surat Jalan</button>
+                                                    </form>
                                                 @endif
                                             @endif
-
                                         </div>
                                     </div>
                                 </div>
@@ -279,6 +283,16 @@
                 placeholder: 'Pilih Armada'
             });
 
+        });
+
+        document.getElementById('suratJalanForm').addEventListener('submit', function(event) {
+            // Tampilkan animasi loading
+            loaderContainer.style.display = 'block';
+
+            // Tambahkan sedikit penundaan untuk memastikan tab baru terbuka sebelum menghentikan animasi
+            setTimeout(function() {
+                loaderContainer.style.display = 'none';
+            }, 1000); // 1 detik penundaan
         });
     </script>
 @endsection
