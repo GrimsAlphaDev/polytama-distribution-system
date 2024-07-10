@@ -47,6 +47,8 @@ Route::group([
     Route::get('/order/edit/{id}', [OrderController::class, 'edit'])->name('order.edit');
     Route::put('/order/update/{id}', [OrderController::class, 'update'])->name('order.update');
     Route::delete('/order/delete/{id}', [OrderController::class, 'destroy'])->name('order.delete');
+    Route::get('/order-report', [OrderController::class, 'report'])->name('order-report');
+    Route::get('/order-report/print', [OrderController::class, 'print'])->name('order-report.print');
     
     
 });

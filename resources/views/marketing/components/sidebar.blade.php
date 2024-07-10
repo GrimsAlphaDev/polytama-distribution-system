@@ -37,6 +37,12 @@
                 {{ request()->is('order.create') || request()->is('order/create*') ? 'active' : '' }}"
                 href="{{ route('order.create') }}">
                 <i class="bi bi-file-earmark-plus me-3"></i> Add New Order</a></li>
-        
+
+        <li class="nav-item"><a
+                class="nav-link 
+                {{ request()->is('order-report') ? 'active' : '' }}"
+                href="{{ route('order-report') }}">
+                <i class="bi bi-file-earmark-bar-graph me-3"></i> Order's Report</a></li>
+
     </ul>
 </div>

@@ -305,8 +305,6 @@ class LogistikController extends Controller
         // sate $date to 14 maret 2021 format
         $date = date('d F Y');
 
-        $transporter = User::where('id', $orders->transporter_id)->first();
-
         // Path to custom logo
         $logoPath = public_path('assets/img/logo-1.png');
 

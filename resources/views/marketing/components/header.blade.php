@@ -18,9 +18,15 @@
                     href="{{ route('customer') }}">Customer</a></li>
             <li class="nav-item"><a
                     class="nav-link
-                {{ request()->is('order') || request()->is('order*') ? 'active' : '' }}
+                {{ request()->is('order') ? 'active' : '' }}
                 "
                     href="{{ route('order') }}">Customer's Order</a></li>
+
+            <li class="nav-item"><a
+                    class="nav-link
+                {{ request()->is('order-report') ? 'active' : '' }}
+                "
+                    href="{{ route('order-report') }}">Order's Report</a></li>
 
         </ul>
         <ul class="header-nav ms-auto"></ul>
@@ -126,6 +132,10 @@
                 @elseif (request()->is('profile/setting'))
                     <li class="breadcrumb-item">Marpolind</li>
                     <li class="breadcrumb-item active"><span>Profile Setting</span>
+                    </li>
+                @elseif (request()->is('order-report'))
+                    <li class="breadcrumb-item">Marpolind</li>
+                    <li class="breadcrumb-item active"><span>Order's Report</span>
                     </li>
                 @else
                     <li class="breadcrumb-item active"><span>Marpolind</span></li>

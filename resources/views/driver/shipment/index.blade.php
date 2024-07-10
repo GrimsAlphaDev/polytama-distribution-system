@@ -188,7 +188,8 @@
                                                 @endif
                                                 @if ($order->shipment_status_id == 10)
                                                     <button type="submit" class="btn btn-primary ms-2 text-white me-2"
-                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">Selesaikan Pesanan</button>
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModal">Selesaikan
+                                                        Pesanan</button>
                                                 @endif
                                                 @if ($order->shipment_status_id > 8)
                                                     <form action="{{ route('viewSJ', $order->surat_jalan->id) }}"
@@ -247,7 +248,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form action="{{ route('updateStatusOrder', $order->id) }}" method="POST">
+                                <form action="{{ route('updateStatusOrder', $order->id) }}" method="POST" enctype="multipart/form-data">
                                     <div class="modal-body">
                                         @csrf
 
@@ -299,6 +300,14 @@
                                             </label>
                                             <textarea name="keterangan" id="keterangan" class="form-control" rows="3" placeholder="Keterangan"></textarea>
                                         </div>
+
+                                        @if ($order->shipment_status_id == 10)
+                                            <div class="mb-3">
+                                                <label for="updatedSJ" class="fw-bold form-label d-block">Update Surat Jalan Yang Sudah Di TTD (PDF)</label>
+                                                <input type="file" class="form-control" name="updatedSJ" id="updatedSJ" 
+                                                accept=".pdf">
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"

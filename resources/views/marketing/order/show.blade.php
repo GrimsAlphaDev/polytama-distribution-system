@@ -119,7 +119,8 @@
                                         <div class="mb-3">
                                             <label for="order_status" class="fw-bold form-label d-block">Status Pesanan
                                                 : </label>
-                                            <label for="order_status" class="form-label">{{ $order->shipmentStatus->name }}</label>
+                                            <label for="order_status"
+                                                class="form-label">{{ $order->shipmentStatus->name }}</label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="order_date" class="fw-bold form-label d-block">Keterangan Pesanan :
@@ -193,6 +194,14 @@
                                                     onclick="return confirm('Apakah Anda yakin ingin menghapus pesanan ini?')">Hapus
                                                     Pesanan</button>
                                             </form>
+                                            @if ($order->shipment_status_id > 8)
+                                                <form action="{{ route('viewSJ', $order->surat_jalan->id) }}"
+                                                    id="suratJalanForm" target="_blank" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-success text-white ms-2"
+                                                        id="buttonView">View Surat Jalan</button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

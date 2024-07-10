@@ -8,8 +8,10 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Customer;
 use App\Models\OrderHistory;
 use App\Models\Product;
+use App\Models\SuratJalan;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use TCPDF;
 
 class OrderController extends Controller
 {
@@ -140,13 +142,20 @@ class OrderController extends Controller
 
         $total = $order->orderDetails->sum('total');
 
+        $surat_jalan = SuratJalan::where('order_id', $id)->first();
+
+        // join order with order with surat jalan
+        if ($surat_jalan) {
+            $order->surat_jalan = $surat_jalan;
+        }
+
         // count total weight order
         $totalWeight = 0;
         foreach ($order->orderDetails as $orderDetail) {
             $totalWeight += $orderDetail->product->weight * $orderDetail->quantity;
         }
 
-        return view('marketing.order.show', compact('order', 'total', 'totalWeight'));
+        return view('marketing.order.show', compact('order', 'total', 'totalWeight', 'surat_jalan'));
     }
 
     /**
@@ -237,7 +246,7 @@ class OrderController extends Controller
         // insert to history
         date_default_timezone_set('Asia/Jakarta');
         $date = date('Y-m-d H:i:s');
-        
+
         OrderHistory::create([
             'order_id' => $order->id,
             'shipment_status_id' => 1,
@@ -252,8 +261,6 @@ class OrderController extends Controller
         DB::commit();
 
         return redirect()->route('order')->with('success', 'Berhasil')->with('description', 'Order Berhasil Diubah');
-
-
     }
 
     /**
@@ -296,5 +303,127 @@ class OrderController extends Controller
         $integerValue = (int) $cleanString;
 
         return $integerValue;
+    }
+
+    public function report()
+    {
+
+        // get now year jakarta time
+        date_default_timezone_set('Asia/Jakarta');
+        $year = date('Y');
+
+        $orders = Order::where('shipment_status_id', 11)->whereYear('updated_at', $year)->orderBy('updated_at', 'desc')->get();
+
+        return view('marketing.order.report', compact('orders'));
+    }
+
+    public function print()
+    {
+        // get now year jakarta time
+        date_default_timezone_set('Asia/Jakarta');
+        $year = date('Y');
+
+        $orders = Order::where('shipment_status_id', 11)->whereYear('updated_at', $year)->orderBy('updated_at', 'desc')->get();
+
+        foreach ($orders as $order) {
+            $order->surat_jalan = SuratJalan::where('order_id', $order->id)->first();
+        }
+
+        $logoPath = public_path('assets/img/logo-1.png');
+
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+        $pdf->SetCreator('MIS Departement');
+
+        $pdf->SetAuthor('PT Polytama Propindo');
+
+        $pdf->SetTitle('Laporan Pesanan Customer');
+
+        $pdf->SetSubject('Laporan Pesanan Customer');
+
+        $pdf->SetKeywords('TCPDF, PDF, laporan, pesanan, customer');
+
+        $pdf->SetHeaderData($logoPath, PDF_HEADER_LOGO_WIDTH, 'PT POLYTAMA PROPINDO', "Jl. Jendral Sudirman Kav. 10-11 Mid Plaza 2 20 Floor Jakarta 10220\nMain Office Phone : +62 215703883 Fax: +62 21 5704468");
+
+        $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+
+        $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        $pdf->setFontSubsetting(true);
+
+        $pdf->SetFont('helvetica', '', 11, '', true);
+
+        $pdf->AddPage();
+
+        // Add logo using Image() method
+        $pdf->Image($logoPath, 15, 3, 30, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false);
+        $pdf->SetY(25);
+
+        $html = '
+            <h1 style="text-align: center;">Laporan Pesanan Customer</h1>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr style="background-color: #f0f0f0;">
+                        <th style="width: 5%; text-align:center;">No</th>
+                        <th style="text-align:center;">Order Number</th>
+                        <th style="text-align:center;">Pelanggan</th>
+                        <th style="width: 13%; text-align:center;">Transporter</th>
+                        <th style="text-align:center;">Supir</th>
+                        <th style="width: 20%;">Status Pengiriman</th>
+                        <th style="text-align:center;">Dibuat Pada</th>
+                        <th style="text-align:center;">Terakhir Diupdate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                ';
+
+        $no = 1;
+        foreach ($orders as $order) {
+
+            // convert to date time
+            $created = date('d-m-Y H:i:s', strtotime($order->created_at));
+            $updated = date('d-m-Y H:i:s', strtotime($order->updated_at));
+
+            $html .= '
+                    <tr>
+                        <td style="width: 5%;">' . $no . '</td>
+                        <td>' . $order->order_number . '</td>
+                        <td>' . $order->customer->name . '</td>
+                        <td style="width: 13%;">' . $order->transporter->name . '</td>
+                        <td>' . $order->driver->name . '</td>
+                        <td style="width: 20%;">' . $order->shipmentStatus->name . '</td>
+                        <td>' . $created . '</td>
+                        <td>' . $updated . '</td>
+                    </tr>
+                ';
+
+            $no++;
+        }
+
+        $html .= '
+                </tbody>
+            </table>
+        ';
+
+
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        $pdf->lastPage();
+
+        $pdf->Output('laporan_pesanan_customer.pdf', 'I');
+        dd($pdf);
+        exit;
     }
 }

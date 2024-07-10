@@ -99,16 +99,34 @@ class ShipmentController extends Controller
             'shipment_status_id.numeric' => 'Ada Kesalahan Pada Sistem, Silahkan Hubungi Admin'
         ]);
 
+
         if ($request->keterangan == null) {
             $keterangan = '-';
         } else {
             $keterangan = $request->keterangan;
         }
 
+        if($request->shipment_status_id == 11){
+            $request->validate([
+                'updatedSJ' => 'required'
+            ], [
+                'updatedSJ.required' => 'Surat Jalan Terbaru Harus Diupload'
+            ]);
+
+            $pdf = $request->file('updatedSJ');
+            // update to base64 encode
+            $pdf_base64 = base64_encode(file_get_contents($pdf));
+
+            $sj = SuratJalan::where('order_id', $id)->first();
+            $sj->doc_surjal = $pdf_base64;
+            $sj->updated_at = now();
+            $sj->update();
+        }
+
         $order = Order::find($id);
-        // update
         $order->shipment_status_id = $request->shipment_status_id;
         $order->keterangan = $keterangan;
+        $order->updated_at = now();
         $order->update();
 
         // date jakarta time
@@ -126,7 +144,7 @@ class ShipmentController extends Controller
         $history->save();
 
 
-        return redirect()->route('driver.shipment')->with('success', 'Sukses')->with('description', 'Status driver berhasil diubah');
+        return redirect()->route('driver.shipment')->with('success', 'Sukses')->with('description', 'Berhasil Menyelesaikan Pengiriman');
     }
 
     public function shipmentHistory()
