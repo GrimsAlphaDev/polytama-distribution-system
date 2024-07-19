@@ -76,7 +76,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="max_weight" class="form-label">Berat Maksimum</label>
+                                        <label for="max_weight" class="form-label">Berat Maksimum (KG)</label>
                                         <input type="number" class="form-control" id="max_weight" name="max_weight" min="1"
                                             value="{{ old('max_weight') }}" required>
                                     </div>

@@ -34,7 +34,7 @@ class CustomerController extends Controller
     {
         // validate the request
         $request->validate([
-            'name' => 'required|min:3|alpha',
+            'name' => 'required|min:3|string',
             'email' => 'required|email|unique:customer,email',
             'phone' => 'required|unique:customer,no_telp',
             'address' => 'required',
@@ -42,7 +42,7 @@ class CustomerController extends Controller
         ], [
             'name.required' => 'Nama tidak boleh kosong',
             'name.min' => 'Nama minimal 3 karakter',
-            'name.alpha' => 'Nama harus berupa huruf',
+            'name.string' => 'Nama harus berupa huruf',
             'email.required' => 'Email tidak boleh kosong',
             'email.email' => 'Email tidak valid',
             'email.unique' => 'Email sudah terdaftar',
@@ -74,7 +74,7 @@ class CustomerController extends Controller
     {
         // validate the request
         $request->validate([
-            'name' => 'required|min:3|alpha',
+            'name' => 'required|min:3|string',
             'email' => 'required|email|unique:customer,email,' . $id,
             'phone' => 'required|unique:customer,no_telp,' . $id,
             'address' => 'required',
@@ -82,7 +82,7 @@ class CustomerController extends Controller
         ], [
             'name.required' => 'Nama tidak boleh kosong',
             'name.min' => 'Nama minimal 3 karakter',
-            'name.alpha' => 'Nama harus berupa huruf',
+            'name.string' => 'Nama harus berupa huruf',
             'email.required' => 'Email tidak boleh kosong',
             'email.email' => 'Email tidak valid',
             'email.unique' => 'Email sudah terdaftar',

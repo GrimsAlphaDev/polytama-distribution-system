@@ -41,7 +41,7 @@
                                                 <th>Driver Assigned</th>
                                                 <th>Keterangan</th>
                                                 <th>Berat Timbangan Pertama</th>
-                                                <th>Berat Kedua</th>
+                                                <th>Berat Timbangan Kedua</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -56,11 +56,15 @@
                                                     <td>{{ $or->keterangan }}</td>
                                                     <td>
                                                         {{ $or->surat_jalan->empty_load_weight ?? 'Data Timbangan Pertama Belum Tersedia' }}
-                                                        KG
+                                                        @if ($or->surat_jalan->empty_load_weight != null)
+                                                            KG
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         {{ $or->surat_jalan->loaded_weight ?? 'Data Timbangan kedua Belum Tersedia' }}
-                                                        KG
+                                                        @if ($or->surat_jalan->loaded_weight != null)
+                                                            KG
+                                                        @endif
                                                     </td>
                                                     <td>{{ $or->shipmentStatus->name }}</td>
                                                     <td>
@@ -76,7 +80,7 @@
                                                                 <button data-bs-toggle="modal"
                                                                     data-bs-target="#updateModal{{ $or->id }}"
                                                                     class="btn btn-sm btn-info text-white me-2">Update
-                                                                    Timbangan</button>
+                                                                    Timbangan Kedua</button>
                                                             @endif
                                                         </div>
                                                     </td>

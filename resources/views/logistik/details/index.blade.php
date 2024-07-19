@@ -188,17 +188,22 @@
                                                             Ke Tahap Timbangan Kedua</button>
                                                     </form>
                                                 @elseif ($order->shipment_status_id == 8)
-                                                    <form action="{{ route('logistik.terbitkanSJ', $order->id) }}" method="post">
+                                                    @if ($order->surat_jalan && $order->surat_jalan->loaded_weight > 0)
+                                                        <form action="{{ route('logistik.terbitkanSJ', $order->id) }}"
+                                                            method="post">
                                                         @csrf
-                                                        <input type="hidden" name="status" value="8">
-                                                        <button type="submit" class="btn btn-success text-white"
-                                                            onclick="return confirm('Terbitkan Surat Jalan Nomor Pesanan {{ $order->order_number }} ?')">Terbitkan
-                                                            Surat Jalan</button>
-                                                    </form>
+                                                            <input type="hidden" name="status" value="8">
+                                                            <button type="submit" class="btn btn-success text-white"
+                                                                onclick="return confirm('Terbitkan Surat Jalan Nomor Pesanan {{ $order->order_number }} ?')">Terbitkan
+                                                                Surat Jalan</button>
+                                                        </form>
+                                                    @endif
                                                 @elseif ($order->shipment_status_id > 8)
-                                                    <form action="{{ route('viewSJ', $order->surat_jalan->id) }}" id="suratJalanForm" target="_blank" method="post">
+                                                    <form action="{{ route('viewSJ', $order->surat_jalan->id) }}"
+                                                        id="suratJalanForm" target="_blank" method="post">
                                                         @csrf
-                                                        <button type="submit" class="btn btn-success text-white" id="buttonView" >View Surat Jalan</button>
+                                                        <button type="submit" class="btn btn-success text-white"
+                                                            id="buttonView">View Surat Jalan</button>
                                                     </form>
                                                 @endif
                                             @endif

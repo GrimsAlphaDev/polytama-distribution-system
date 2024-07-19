@@ -135,7 +135,7 @@
         };
 
         const config2 = {
-            type: 'doughnut',
+            type: 'polarArea',
             data: data2,
             options: {
                 responsive: true,

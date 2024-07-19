@@ -337,11 +337,11 @@ class OrderController extends Controller
 
         $pdf->SetAuthor('PT Polytama Propindo');
 
-        $pdf->SetTitle('Laporan Pesanan Customer');
+        $pdf->SetTitle('Laporan Pesanan Pelanggan Tahun 2024');
 
-        $pdf->SetSubject('Laporan Pesanan Customer');
+        $pdf->SetSubject('Laporan Pesanan Pelanggan Tahun 2024');
 
-        $pdf->SetKeywords('TCPDF, PDF, laporan, pesanan, customer');
+        $pdf->SetKeywords('TCPDF, PDF, laporan, pesanan, pelanggan');
 
         $pdf->SetHeaderData($logoPath, PDF_HEADER_LOGO_WIDTH, 'PT POLYTAMA PROPINDO', "Jl. Jendral Sudirman Kav. 10-11 Mid Plaza 2 20 Floor Jakarta 10220\nMain Office Phone : +62 215703883 Fax: +62 21 5704468");
 
@@ -372,7 +372,7 @@ class OrderController extends Controller
         $pdf->SetY(25);
 
         $html = '
-            <h1 style="text-align: center;">Laporan Pesanan Customer</h1>
+            <h1 style="text-align: center;">Laporan Pesanan Pelanggan Tahun 2024</h1>
             <table border="1" cellpadding="5" cellspacing="0">
                 <thead>
                     <tr style="background-color: #f0f0f0;">
