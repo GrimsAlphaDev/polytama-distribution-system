@@ -15,7 +15,7 @@ class ShipmentController extends Controller
     {
 
         $order = Order::where('driver_id', auth()->user()->id)->where('shipment_status_id', '!=', 11)->first();
-        $driverAvail = Availability::where('created_at', '>=', now()->startOfDay())->where('created_at', '<=', now()->endOfDay())->where('user_id', auth()->user()->id)->first();
+        $driverAvail = Availability::where('created_at', '>=', now()->startOfDay())->where('created_at', '<=', now()->endOfDay())->where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->first();
         
         if ($order) {
             $status = 2;
@@ -75,7 +75,7 @@ class ShipmentController extends Controller
             'status.required' => 'Status harus diisi'
         ]);
 
-        $availability = Availability::where('created_at', '>=', now()->startOfDay())->where('created_at', '<=', now()->endOfDay())->where('user_id', $id)->first();
+        $availability = Availability::where('created_at', '>=', now()->startOfDay())->where('created_at', '<=', now()->endOfDay())->where('user_id', $id)->orderBy('created_at', 'desc')->first();
         if ($availability) {
             $availability->status = $request->status;
             $availability->updated_at = now();
@@ -116,11 +116,19 @@ class ShipmentController extends Controller
             $pdf = $request->file('updatedSJ');
             // update to base64 encode
             $pdf_base64 = base64_encode(file_get_contents($pdf));
-
+            
             $sj = SuratJalan::where('order_id', $id)->first();
             $sj->doc_surjal = $pdf_base64;
             $sj->updated_at = now();
             $sj->update();
+            
+            // update status driver menjadi not available
+            $availability = new Availability();
+            $availability->user_id = auth()->user()->id;
+            $availability->status = 0;
+            $availability->created_at = now();
+            $availability->updated_at = now();
+            $availability->save();
         }
 
         $order = Order::find($id);

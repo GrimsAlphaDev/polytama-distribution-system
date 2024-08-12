@@ -8,8 +8,10 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Customer;
 use App\Models\OrderHistory;
 use App\Models\Product;
+use App\Models\ShipmentStatus;
 use App\Models\SuratJalan;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use TCPDF;
 
@@ -18,11 +20,35 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::orderBy('updated_at', 'desc')->get();
+        
+        if(isset($request->customer) && $request->customer != 'all' && isset($request->transporter) && $request->transporter != 'all' && isset($request->status) && $request->status != 'all') {
+            $orders = Order::where('customer_id', $request->customer)->where('transporter_id', $request->transporter)->where('shipment_status_id', $request->status)->orderBy('updated_at', 'desc')->get();
+        } else if(isset($request->customer) && $request->customer != 'all' && isset($request->transporter) && $request->transporter != 'all') {
+            $orders = Order::where('customer_id', $request->customer)->where('transporter_id', $request->transporter)->orderBy('updated_at', 'desc')->get();
+        } else if(isset($request->customer) && $request->customer != 'all' && isset($request->status) && $request->status != 'all') {
+            $orders = Order::where('customer_id', $request->customer)->where('shipment_status_id', $request->status)->orderBy('updated_at', 'desc')->get();
+        } else if(isset($request->transporter) && $request->transporter != 'all' && isset($request->status) && $request->status != 'all') {
+            $orders = Order::where('transporter_id', $request->transporter)->where('shipment_status_id', $request->status)->orderBy('updated_at', 'desc')->get();
+        } else if(isset($request->customer) && $request->customer != 'all') {
+            $orders = Order::where('customer_id', $request->customer)->orderBy('updated_at', 'desc')->get();
+        } else if(isset($request->transporter) && $request->transporter != 'all') {
+            $orders = Order::where('transporter_id', $request->transporter)->orderBy('updated_at', 'desc')->get();
+        } else if(isset($request->status) && $request->status != 'all') {
+            $orders = Order::where('shipment_status_id', $request->status)->orderBy('updated_at', 'desc')->get();
+        } else {
+            $orders = Order::orderBy('updated_at', 'desc')->get();
+        }
+        
 
-        return view('marketing.order.index', compact('orders'));
+        $customers = Customer::orderBy('name', 'asc')->get();
+
+        $transporters = User::where('role_id', '2')->orderBy('name', 'asc')->get();
+
+        $statuses = ShipmentStatus::orderBy('name', 'asc')->get();
+
+        return view('marketing.order.index', compact('orders', 'customers', 'transporters', 'statuses'));
     }
 
     /**

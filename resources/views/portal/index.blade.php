@@ -427,6 +427,7 @@
     <script>
         const loaderContainer = document.getElementById('loader-container');
         document.addEventListener("DOMContentLoaded", function() {
+        console.log('test');
             // Hide loader after page is fully loaded
             window.addEventListener("load", function() {
                 loaderContainer.style.display = 'none';

@@ -125,7 +125,7 @@
                                                                             :
                                                                         </label>
                                                                         <label for="kapasitas"
-                                                                            class="form-label">{{ $or->armada->max_load }}</label>
+                                                                            class="form-label">{{ $or->armada->max_load }} <strong>KG</strong></label>
                                                                     </div>
 
                                                                     <div class="mb-3">
@@ -134,7 +134,7 @@
                                                                             :
                                                                         </label>
                                                                         <label for="nopol"
-                                                                            class="form-label">{{ $or->armada->license_plate }}</label>
+                                                                            class="form-label">{{ $or->armada->license_plate }} </label>
                                                                     </div>
 
 
@@ -205,7 +205,7 @@
                                                                             :
                                                                         </label>
                                                                         <label for="kapasitas"
-                                                                            class="form-label">{{ $or->armada->max_load }}</label>
+                                                                            class="form-label">{{ $or->armada->max_load }} <strong>KG</strong></label>
                                                                     </div>
 
                                                                     <div class="mb-3">

@@ -49,6 +49,58 @@
                         <div class="card">
                             <div class="card-header">Customer's Order</div>
                             <div class="card-body">
+
+                                {{-- create filter --}}
+                                <div class="mb-3">
+                                    <form action="{{ route('order') }}" method="get">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label for="status" class="form-label">Status Pesanan</label>
+                                                <select class="form-control" id="status" name="status" required>
+                                                    <option value="all"
+                                                        {{ request('status') == 'all' ? 'selected' : '' }}>Semua
+                                                        Status</option>
+                                                    @foreach ($statuses as $shipmentStatus)
+                                                        <option value="{{ $shipmentStatus->id }}"
+                                                            {{ request('status') == $shipmentStatus->id ? 'selected' : '' }}>
+                                                            {{ $shipmentStatus->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="customer" class="form-label">Customer</label>
+                                                <select class="form-control" id="customer" name="customer" required data-allow-clear="true">
+                                                    <option value="all"
+                                                        {{ request('customer') == 'all' ? 'selected' : '' }}>Semua
+                                                        Customer</option>
+                                                    @foreach ($customers as $customer)
+                                                        <option value="{{ $customer->id }}"
+                                                            {{ request('customer') == $customer->id ? 'selected' : '' }}>
+                                                            {{ $customer->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label for="transporter" class="form-label">Transporter</label>
+                                                <select class="form-control" id="transporter" name="transporter" required data-allow-clear="true">
+                                                    <option value="all"
+                                                        {{ request('transporter') == 'all' ? 'selected' : '' }}>
+                                                        Semua Transporter</option>
+                                                    @foreach ($transporters as $transporter)
+                                                        <option value="{{ $transporter->id }}"
+                                                            {{ request('transporter') == $transporter->id ? 'selected' : '' }}>
+                                                            {{ $transporter->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="submit" class="btn btn-primary btn-lg mt-4">Filter</button>
+                                                {{-- reset filter --}}
+                                                <a href="{{ route('order') }}" class="btn btn-danger btn-lg text-white mt-4">Reset</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                                 <!-- Add a wrapper around the table for horizontal scrolling -->
                                 <div class="table-responsive">
                                     <table id="customersTable" class="table table-striped table-hover">
@@ -231,5 +283,6 @@
             var ctx = document.getElementById('myChart').getContext('2d');
             new Chart(ctx, config);
         };
+        
     </script>
 @endsection
